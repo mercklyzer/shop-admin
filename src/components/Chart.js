@@ -10,7 +10,7 @@ import {
 
 const Chart = ({ title, data, dataKey, grid }) => {
     return (
-        <div className="p-4 shadow-lg m-4 rounded-lg">
+        <div className="p-4 shadow-lg m-8 rounded-lg bg-white">
             <div className="font-bold text-lg">{title}</div>
             <ResponsiveContainer width="100%" aspect={4 / 1}>
                 <LineChart data={data}>

@@ -1,5 +1,6 @@
 import React from "react"
 import Chart from "./Chart";
+import LatestTransactionsCard from "./LatestTransactionsCard";
 import NewUsersCard from "./NewUsersCard";
 import ReportCard from "./ReportCard";
 
@@ -80,7 +81,7 @@ const Content = props => {
             <NewUsersCard />
           </div>
           <div className="col-span-2">
-            <ReportCard />
+            <LatestTransactionsCard />
           </div>
         </div>
 

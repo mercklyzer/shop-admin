@@ -1,5 +1,6 @@
 import React from "react"
 import Chart from "./Chart";
+import NewUsersCard from "./NewUsersCard";
 import ReportCard from "./ReportCard";
 
 const userData = [
@@ -73,9 +74,17 @@ const Content = props => {
             grid
             dataKey="Active User"
         />
+
+        <div className="grid grid-cols-3 gap-8 p-8">
+          <div className="col-span-1">
+            <NewUsersCard />
+          </div>
+          <div className="col-span-2">
+            <ReportCard />
+          </div>
+        </div>
+
       </div>
-
-
     </div>
   )
 }

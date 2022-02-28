@@ -2,7 +2,7 @@ import React from "react"
 
 const Sidebar = (props) => {
     return (
-        <div className={`${props.className} bg-zinc-200`}>
+        <div className={`${props.className} bg-gray-200`}>
             <div className="sticky top-0 left-0">
                 <div className="bg-slate-700 py-4 px-8 h-16 shadow-2xl">
                     <div className="font-semibold text-2xl text-white">Admin</div>

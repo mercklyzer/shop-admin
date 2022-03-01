@@ -58,7 +58,7 @@ const userData = [
 const Dashboard = props => {
   return (
     <>
-        <div className="grid grid-cols-3 gap-8 p-8">
+        <div className="grid grid-cols-3 gap-8 pb-8">
           <ReportCard />
           <ReportCard />
           <ReportCard />
@@ -71,7 +71,7 @@ const Dashboard = props => {
             dataKey="Active User"
         />
 
-        <div className="grid grid-cols-3 gap-8 p-8">
+        <div className="grid grid-cols-3 gap-8 mt-8">
           <div className="col-span-1">
             <NewUsersCard />
           </div>

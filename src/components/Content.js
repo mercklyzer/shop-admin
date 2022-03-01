@@ -57,11 +57,11 @@ const userData = [
 
 const Content = props => {
   return (
-    <div className={`${props.className} `}>
+    <div className={`${props.className}`}>
       <div className="bg-white h-16 py-4 px-8 flex justify-end items-center shadow-md sticky top-0">
         <div className="text-slate-700 font-bold">Lyzer</div>
       </div>
-      <div className="min-h-[100vh] bg-gray-100">
+      <div className="min-h-[100vh] bg-gray-100 p-8">
         {props.children}
       </div>
     </div>

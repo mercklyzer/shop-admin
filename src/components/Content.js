@@ -61,7 +61,9 @@ const Content = props => {
       <div className="bg-white h-16 py-4 px-8 flex justify-end items-center shadow-md sticky top-0">
         <div className="text-slate-700 font-bold">Lyzer</div>
       </div>
-      {props.children}
+      <div className="min-h-[100vh] bg-gray-100">
+        {props.children}
+      </div>
     </div>
   )
 }

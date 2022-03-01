@@ -57,7 +57,7 @@ const userData = [
 
 const Dashboard = props => {
   return (
-      <div className="min-h-[100vh] bg-gray-100">
+    <>
         <div className="grid grid-cols-3 gap-8 p-8">
           <ReportCard />
           <ReportCard />
@@ -79,8 +79,7 @@ const Dashboard = props => {
             <LatestTransactionsCard />
           </div>
         </div>
-
-      </div>
+    </>
 
   )
 }

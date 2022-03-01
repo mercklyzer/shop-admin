@@ -1,13 +1,57 @@
-import React from "react"
+import React, { useState } from "react"
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import app from "../firebase";
 
 const AddProduct = props => {
+    const [image,setImage] = useState()
+
+    const handleChangeImage = e => {
+        const image = e.target.files[0]
+        console.log(e.target.files);
+        const filename = new Date().getTime() + image.name
+        const storage = getStorage(app)
+        const storageRef = ref(storage, filename)
+
+        const uploadTask = uploadBytesResumable(storageRef, image);
+
+        uploadTask.on('state_changed', 
+        (snapshot) => {
+
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('Upload is ' + progress + '% done');
+            switch (snapshot.state) {
+            case 'paused':
+                console.log('Upload is paused');
+                break;
+            case 'running':
+                console.log('Upload is running');
+                break;
+            default:
+            }
+        }, 
+        (error) => {
+            // Handle unsuccessful uploads
+        }, 
+        () => {
+            // Handle successful uploads on complete
+            // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            console.log('File available at', downloadURL);
+            setImage(downloadURL)
+            });
+        }
+        );
+
+    }
+
     return(
         <div className="p-6 shadow-xl bg-white rounded-lg">
             <div className="text-2xl font-bold">New Product</div>
 
             <div className="mt-4">
                 <div className="text-gray-700 font-semibold mb-2">Image</div>
-                <input type="file" />
+                <input type="file" onChange={(e) => handleChangeImage(e)} />
+                {image && <img src={image} className=""/>}
             </div>
 
             <div className="mt-4">

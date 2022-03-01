@@ -61,31 +61,7 @@ const Content = props => {
       <div className="bg-white h-16 py-4 px-8 flex justify-end items-center shadow-md sticky top-0">
         <div className="text-slate-700 font-bold">Lyzer</div>
       </div>
-
-      <div className="min-h-[100vh] bg-gray-100">
-        <div className="grid grid-cols-3 gap-8 p-8">
-          <ReportCard />
-          <ReportCard />
-          <ReportCard />
-        </div>
-
-        <Chart
-            data={userData}
-            title="User Analytics"
-            grid
-            dataKey="Active User"
-        />
-
-        <div className="grid grid-cols-3 gap-8 p-8">
-          <div className="col-span-1">
-            <NewUsersCard />
-          </div>
-          <div className="col-span-2">
-            <LatestTransactionsCard />
-          </div>
-        </div>
-
-      </div>
+      {props.children}
     </div>
   )
 }

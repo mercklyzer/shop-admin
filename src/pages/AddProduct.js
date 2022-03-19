@@ -49,7 +49,19 @@ const AddProduct = props => {
             <div className="text-2xl font-bold">New Product</div>
 
             <div className="mt-4">
-                <div className="text-gray-700 font-semibold mb-2">Image</div>
+                <div className="text-gray-700 font-semibold mb-2">Display Image</div>
+                <input type="file" onChange={(e) => handleChangeImage(e)} />
+                {image && <img src={image} className=""/>}
+            </div>
+
+            <div className="mt-4">
+                <div className="text-gray-700 font-semibold mb-2">Preview Image</div>
+                <input type="file" onChange={(e) => handleChangeImage(e)} />
+                {image && <img src={image} className=""/>}
+            </div>
+
+            <div className="mt-4">
+                <div className="text-gray-700 font-semibold mb-2">Other Images</div>
                 <input type="file" onChange={(e) => handleChangeImage(e)} />
                 {image && <img src={image} className=""/>}
             </div>
@@ -58,10 +70,22 @@ const AddProduct = props => {
                 <div className="text-gray-700 font-semibold mb-2">Name</div>
                 <input className="border px-2 py-1 rounded-sm w-96" type="text" />
             </div>
+
+            <div className="mt-4">
+                <div className="text-gray-700 font-semibold mb-2">Description</div>
+                <input className="border px-2 py-1 rounded-sm w-96" type="text" />
+            </div>
+
+            <div className="mt-4">
+                <div className="text-gray-700 font-semibold mb-2">Price</div>
+                <input className="border px-2 py-1 rounded-sm w-96" type="number" />
+            </div>
             
             <div className="mt-4">
-                <div className="text-gray-700 font-semibold mb-2">Categories</div>
-                <input className="border px-2 py-1 rounded-sm w-96" type="text" />
+                <select className="text-gray-700 font-semibold p-2">
+                    <option className="border px-2 py-1 rounded-sm w-96" value="bed" selected disabled>Category</option>
+                    <option className="border px-2 py-1 rounded-sm w-96" value="bed">Bed</option>
+                </select>
             </div>
             
             <div className="mt-4">

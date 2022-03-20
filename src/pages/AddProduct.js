@@ -3,7 +3,9 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/
 import app from "../firebase";
 
 const AddProduct = props => {
-    const [image,setImage] = useState()
+    const [displayImg,setDisplayImg] = useState()
+    const [previewImg,setPreviewImg] = useState()
+    const [otherImgs,setOtherImgs] = useState([])
 
     const handleChangeImage = e => {
         const image = e.target.files[0]
@@ -39,9 +41,7 @@ const AddProduct = props => {
             console.log('File available at', downloadURL);
             setImage(downloadURL)
             });
-        }
-        );
-
+        });
     }
 
     return(
@@ -50,19 +50,19 @@ const AddProduct = props => {
 
             <div className="mt-4">
                 <div className="text-gray-700 font-semibold mb-2">Display Image</div>
-                <input type="file" onChange={(e) => handleChangeImage(e)} />
+                <input type="file" name="displayImg" onChange={(e) => handleChangeImage(e)} />
                 {image && <img src={image} className=""/>}
             </div>
 
             <div className="mt-4">
                 <div className="text-gray-700 font-semibold mb-2">Preview Image</div>
-                <input type="file" onChange={(e) => handleChangeImage(e)} />
+                <input type="file" name="previewImg" onChange={(e) => handleChangeImage(e)} />
                 {image && <img src={image} className=""/>}
             </div>
 
             <div className="mt-4">
                 <div className="text-gray-700 font-semibold mb-2">Other Images</div>
-                <input type="file" onChange={(e) => handleChangeImage(e)} />
+                <input type="file" name="otherImgs" onChange={(e) => handleChangeImage(e)} />
                 {image && <img src={image} className=""/>}
             </div>
 

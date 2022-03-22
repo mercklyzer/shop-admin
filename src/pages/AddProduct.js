@@ -60,7 +60,7 @@ const AddProduct = props => {
             let newImage = {
                 target: {
                     name:e.target.name,
-                    value: e.target.name === 'otherImgs'? images : images[0]
+                    value: e.target.name === 'otherImgs'? [...product.otherImgs, ...images] : images[0]
                 }
             }
             setProduct(newImage)

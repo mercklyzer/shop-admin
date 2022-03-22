@@ -160,6 +160,12 @@ const AddProduct = props => {
                 <div className="text-gray-700 font-semibold mb-2">Price</div>
                 <input className="border px-2 py-1 rounded-sm w-96" type="number" />
             </div>
+
+            <div className="mt-4">
+                <div className="text-gray-700 font-semibold mb-2">Cost</div>
+                <input className="border px-2 py-1 rounded-sm w-96" type="number" />
+                <pre className="text-gray-500 font-semibold">This field will not be shown to the users.</pre>
+            </div>
             
             <div className="mt-4">
                 <select className="text-gray-700 font-semibold p-2">
@@ -167,7 +173,7 @@ const AddProduct = props => {
                     <option className="border px-2 py-1 rounded-sm w-96" value="bed">Bed</option>
                 </select>
             </div>
-            1
+            
             <div className="mt-4">
                 <div className="text-gray-700 font-semibold mb-2">Stock</div>
                 <input className="border px-2 py-1 rounded-sm w-96" type="number" defaultValue={1} min={1}/>

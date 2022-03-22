@@ -15,9 +15,8 @@ const AddProduct = props => {
         stock: 0
     })
 
-
     const handleChangeImage = e => {
-
+        console.log(e.target);
         let imagesToUpload = Array.from(e.target.files)
         const storage = getStorage(app)
         const promises = []
@@ -48,9 +47,7 @@ const AddProduct = props => {
                 }, 
                 async () => {
                     // Handle successful uploads on complete
-                    const downloadURL = await getDownloadURL(uploadTask.snapshot.ref)
-                    console.log('File available at', downloadURL);
-                        
+                    const downloadURL = await getDownloadURL(uploadTask.snapshot.ref)                        
                     fulfill(downloadURL)
                 });
             })
@@ -70,31 +67,71 @@ const AddProduct = props => {
         })
     }
 
+    const removeImage = (image) => {
+        const images = product.otherImgs
+
+        const i = images.indexOf(image)
+        if(i !== -1){
+            images.splice(i, 1)
+        }
+
+        const otherImgs = {
+            target:{
+                name: 'otherImgs',
+                value: images
+            }
+        }
+
+        setProduct(otherImgs)
+    }
+
     return(
         <div className="p-6 shadow-xl bg-white rounded-lg">
             <div className="text-2xl font-bold">New Product</div>
 
             <div className="mt-4">
                 <div className="text-gray-700 font-semibold mb-2">Display Image</div>
-                <input 
-                    type="file" 
-                    name="displayImg"
-                    onChange={(e) => handleChangeImage(e)} 
-                />
+                <label className="inline-block cursor-pointer">
+                    <input type="file" name="displayImg" className="hidden" onChange={(e) => handleChangeImage(e)} />
+                    <div className="py-2 px-2 bg-blue-500 rounded-lg w-fit ">
+                        <svg class="w-6 h-6 inline-block mr-1" fill="none" stroke="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                        <span className="text-white">Upload Image</span>
+                    </div>
+                </label>
                 {product.displayImg && <img src={product.displayImg} className=""/>}
             </div>
 
             <div className="mt-4">
                 <div className="text-gray-700 font-semibold mb-2">Preview Image</div>
-                <input type="file" name="previewImg" onChange={(e) => handleChangeImage(e)} />
+                <label className="inline-block cursor-pointer">
+                    <input type="file" name="previewImg" className="hidden" onChange={(e) => handleChangeImage(e)} />
+                    <div className="py-2 px-2 bg-blue-500 rounded-lg w-fit ">
+                        <svg class="w-6 h-6 inline-block mr-1" fill="none" stroke="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                        <span className="text-white">Upload Image</span>
+                    </div>
+                </label>
+                
                 {product.previewImg && <img src={product.previewImg} className=""/>}
             </div>
 
             <div className="mt-4">
                 <div className="text-gray-700 font-semibold mb-2">Other Images</div>
-                <input type="file" name="otherImgs" onChange={(e) => handleChangeImage(e)} multiple/>
+                <label className="inline-block cursor-pointer">
+                    <input type="file" className="hidden" name="otherImgs" onChange={(e) => handleChangeImage(e)} multiple/>
+                    <div className="py-2 px-2 bg-blue-500 rounded-lg w-fit ">
+                        <svg class="w-6 h-6 inline-block mr-1" fill="none" stroke="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                        <span className="text-white">Upload Images</span>
+                    </div>
+                </label>
+
                 {
-                    product.otherImgs.map((img, i) => <img src={img} key={i}/>)
+                    product.otherImgs.map((img, i) => (
+                    <div className="relative inline-block mt-4">
+                        <img src={img} key={i}/>
+                        <svg 
+                            onClick={() => removeImage(img)}
+                            className="w-6 h-6 top-0 right-0 absolute cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </div>))
                 }
             </div>
 

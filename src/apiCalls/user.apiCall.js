@@ -13,6 +13,7 @@ export const login = async (dispatch, navigate, user) => {
         )
 
         dispatch(loginSuccess(res.data))
+        navigate('/')
     }
     catch(err){
         dispatch(loginFailure({error: err.response?.data?.error}))

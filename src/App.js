@@ -9,6 +9,7 @@ import {
 import Products from './pages/Products';
 import AddProduct from './pages/AddProduct';
 import Login from './pages/Login';
+import Main from './pages/Main';
 
 function App() {
   return (
@@ -23,7 +24,13 @@ function App() {
           </Routes>
         </Content>
       </Router> */}
-      <Login />
+      <Router>
+        <Routes>
+          <Route path='/' exact element={<Main />} />
+          <Route path='/login' exact element={<Login />} />
+        </Routes>
+      </Router>
+      
     </div>
   );
 }

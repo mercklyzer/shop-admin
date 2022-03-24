@@ -11,12 +11,12 @@ const Login = props => {
     })
 
     const dispatch = useDispatch()
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
     const {isFetchingLogin, errorLogin, errorMessageLogin} = useSelector(state => state.user)
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        login(dispatch, '', loginForm)
+        login(dispatch, navigate, loginForm)
         clearLoginForm()
     }
 

@@ -1,6 +1,26 @@
 import React from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import { login } from "../apiCalls/user.apiCall"
+import useForm from "../hooks/useForm"
 
 const Login = props => {
+    const [loginForm, setLoginForm, clearLoginForm] = useForm({
+        username: "",
+        password: ""
+    })
+
+    const dispatch = useDispatch()
+    // const navigate = useNavigate()
+    const {isFetchingLogin, errorLogin, errorMessageLogin} = useSelector(state => state.user)
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        login(dispatch, '', loginForm)
+        clearLoginForm()
+    }
+
+
     return (
         <div className="w-screen h-screen bg-primary-100 flex items-center justify-center">
             <div className="flex shadow-2xl mx-4 md:mx-12 w-full max-w-[80em] ">
@@ -10,23 +30,35 @@ const Login = props => {
                         <span className="text-black font-bold text-sm">Ideas</span>
                     </div>
                     <div className="font-bold text-2xl">ADMIN</div>
-                    <label className="flex flex-col w-full max-w-[20rem] mt-4 md:mt-8 mx-2">
-                        <div className="text-sm font-bold text-zinc-500 mb-2">Username</div>
-                        <input 
-                            className="bg-primary-100 px-4 py-2 rounded-lg outline-primary-200 w-full"
-                            type="text" />
-                    </label>
-                    <label className="flex flex-col w-full max-w-[20rem] mt-4">
-                        <div className="text-sm font-bold text-zinc-500 mb-2">Password</div>
-                        <input 
-                            className="bg-primary-100 px-4 py-2 rounded-lg outline-primary-200 w-full"
-                            type="password" />
-                    </label>
-                    <button 
-                        className="bg-black text-white px-8 py-2 rounded-lg mt-20 hover:bg-zinc-700 duration-100"
-                        type="submit">
-                        Login
-                    </button>
+                    {errorLogin && <div className="text-red-600">{errorMessageLogin}</div>}
+                    <form className="w-full max-w-[20rem]">                    
+                        <label className="flex flex-col w-full mt-4 md:mt-8 mx-2">
+                            <div className="text-sm font-bold text-zinc-500 mb-2">Username</div>
+                            <input
+                                name="username"
+                                value={loginForm.username}
+                                onChange={(e) => setLoginForm(e)}
+                                className="bg-primary-100 px-4 py-2 rounded-lg outline-primary-200 w-full"
+                                type="text" />
+                        </label>
+                        <label className="flex flex-col w-full mt-4">
+                            <div className="text-sm font-bold text-zinc-500 mb-2">Password</div>
+                            <input 
+                                name="password"
+                                value={loginForm.password}
+                                onChange={(e) => setLoginForm(e)}
+                                className="bg-primary-100 px-4 py-2 rounded-lg outline-primary-200 w-full"
+                                type="password" />
+                        </label>
+                        <div className="flex justify-center w-full">
+                            <button 
+                                className="bg-black text-white px-8 py-2 rounded-lg mt-20 hover:bg-zinc-700 duration-100"
+                                onClick={handleSubmit}
+                                type="submit">
+                                Login
+                            </button>
+                        </div>
+                    </form> 
                 </div>
 
                 <div className="hidden md:flex flex-col items-center justify-center flex-1 py-12 bg-primary-100 w-full px-8">

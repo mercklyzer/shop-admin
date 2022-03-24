@@ -26,8 +26,9 @@ function App() {
       </Router> */}
       <Router>
         <Routes>
-          <Route path='/' exact element={<Main />} />
           <Route path='/login' exact element={<Login />} />
+          {['/', '/products'].map((path, i) => <Route path={path} key={i} element={<Main />} />)}
+          
         </Routes>
       </Router>
       

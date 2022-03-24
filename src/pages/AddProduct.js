@@ -93,9 +93,9 @@ const AddProduct = props => {
                 <div className="text-gray-700 font-semibold mb-2">Display Image</div>
                 <label className="inline-block cursor-pointer">
                     <input type="file" name="displayImg" className="hidden" onChange={(e) => handleChangeImage(e)} />
-                    <div className="py-2 px-2 bg-blue-500 rounded-lg w-fit ">
-                        <svg class="w-6 h-6 inline-block mr-1" fill="none" stroke="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-                        <span className="text-white">Upload Image</span>
+                    <div className="py-2 px-2 bg-blue-600 hover:bg-blue-500 rounded-lg w-fit duration-100 ">
+                        <svg class="w-6 h-6 inline-block mr-2" fill="none" stroke="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                        <span className="text-white duration-100">Upload Image</span>
                     </div>
                 </label>
                 {product.displayImg && <div className="relative inline-block mt-4">
@@ -110,8 +110,8 @@ const AddProduct = props => {
                 <div className="text-gray-700 font-semibold mb-2">Preview Image</div>
                 <label className="inline-block cursor-pointer">
                     <input type="file" name="previewImg" className="hidden" onChange={(e) => handleChangeImage(e)} />
-                    <div className="py-2 px-2 bg-blue-500 rounded-lg w-fit ">
-                        <svg class="w-6 h-6 inline-block mr-1" fill="none" stroke="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                    <div className="py-2 px-2 bg-blue-600 hover:bg-blue-500 rounded-lg w-fit ">
+                        <svg class="w-6 h-6 inline-block mr-2" fill="none" stroke="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
                         <span className="text-white">Upload Image</span>
                     </div>
                 </label>
@@ -128,8 +128,8 @@ const AddProduct = props => {
                 <div className="text-gray-700 font-semibold mb-2">Other Images</div>
                 <label className="cursor-pointer inline-block">
                     <input type="file" className="hidden" name="otherImgs" onChange={(e) => handleChangeImage(e)} multiple/>
-                    <div className="py-2 px-2 bg-blue-500 rounded-lg">
-                        <svg class="w-6 h-6 inline-block mr-1" fill="none" stroke="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                    <div className="py-2 px-2 bg-blue-600 hover:bg-blue-500 rounded-lg">
+                        <svg class="w-6 h-6 inline-block mr-2" fill="none" stroke="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
                         <span className="text-white">Upload Images</span>
                     </div>
                 </label>
@@ -180,7 +180,7 @@ const AddProduct = props => {
             </div>
 
             <div className="mt-8">
-                <button className="px-4 py-1 bg-cyan-700 text-white rounded-md hover:bg-cyan-900 duration-100">
+                <button className="px-6 py-2 bg-black text-white rounded-md hover:bg-zinc-800 duration-100">
                     Create
                 </button>
             </div>

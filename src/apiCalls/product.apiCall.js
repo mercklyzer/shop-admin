@@ -2,20 +2,23 @@ import axios from 'axios'
 
 const baseUrl = "http://localhost:5000"
 
-export const addProduct = async (product) => {
+export const addProduct = async (token, navigate, product) => {
     try{
         const res = await axios.post(
-            `${baseUrl}/products/`,
+            `${baseUrl}/products`,
             product,
             {
                 headers: {
-                    Authorization: 's'
+                    Authorization: token
                 }
             }
         )
+
+        console.log(res.data);
+        navigate('/products')
     }
     catch(err){
-
+        console.log(err.response);
     }
 }
 

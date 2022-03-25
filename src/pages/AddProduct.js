@@ -18,7 +18,7 @@ const AddProduct = props => {
         desc: '',
         price: 0,
         cost: 0,
-        category: '',
+        category: 'beds',
         stock: 1
     })
 
@@ -92,7 +92,8 @@ const AddProduct = props => {
         setProduct(otherImgs)
     }
 
-    const onAddProduct = () => {
+    const onAddProduct = (e) => {
+        e.preventDefault()
         addProduct(token, navigate, product)
     }
 
@@ -180,9 +181,10 @@ const AddProduct = props => {
                 </div>
                 
                 <div className="mt-4">
-                    <select className="text-gray-700 font-semibold p-2" name="category" onChange={(e) => setProduct(e)}>
-                        <option className="border px-2 py-1 rounded-sm w-96" selected disabled>Category</option>
-                        <option className="border px-2 py-1 rounded-sm w-96" value="bed">Bed</option>
+                    <div className="text-gray-700 font-semibold mb-2">Category</div>
+                    <select className="text-gray-700 font-semibold p-2" name="category" value={product.category} onChange={(e) => setProduct(e)}>
+                        <option className="border px-2 py-1 rounded-sm w-96" value="beds">Bed</option>
+                        <option className="border px-2 py-1 rounded-sm w-96" value="pillows">Pillow</option>
                     </select>
                 </div>
                 
@@ -194,7 +196,7 @@ const AddProduct = props => {
                 <div className="mt-8">
                     <button 
                         type="submit"
-                        onClick={onAddProduct}
+                        onClick={(e) => onAddProduct(e)}
                         className="px-6 py-2 bg-black text-white rounded-md hover:bg-zinc-800 duration-100">
                         Create
                     </button>

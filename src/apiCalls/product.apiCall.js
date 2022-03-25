@@ -4,6 +4,7 @@ const baseUrl = "http://localhost:5000"
 
 export const addProduct = async (token, navigate, product) => {
     try{
+        console.log(product);
         const res = await axios.post(
             `${baseUrl}/products`,
             product,

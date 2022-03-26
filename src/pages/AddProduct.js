@@ -111,11 +111,11 @@ const AddProduct = props => {
                             <span className="text-white duration-100">Upload Image</span>
                         </div>
                     </label>
-                    {product.displayImg && <div className="relative inline-block mt-4">
+                    {product.displayImg && <div className="relative max-w-sm  mt-4">
                         <img src={product.displayImg} />
                         <svg 
                             onClick={() => setProduct({target: {name: 'displayImg', value: ''}})}
-                            className="w-6 h-6 top-0 right-0 absolute cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            className="w-6 h-6 top-2 right-2 absolute cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                     </div>}
                 </div>
 
@@ -129,11 +129,11 @@ const AddProduct = props => {
                         </div>
                     </label>
                     
-                    {product.previewImg && <div className="relative inline-block mt-4">
+                    {product.previewImg && <div className="relative max-w-sm mt-4">
                         <img src={product.previewImg} />
                         <svg 
                             onClick={() => setProduct({target: {name: 'previewImg', value: ''}})}
-                            className="w-6 h-6 top-0 right-0 absolute cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            className="w-6 h-6 top-2 right-2 absolute cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                     </div>}
                 </div>
 
@@ -146,14 +146,14 @@ const AddProduct = props => {
                             <span className="text-white">Upload Images</span>
                         </div>
                     </label>
-                    <div>
+                    <div className="grid grid-cols-3 gap-4">
                         {
                             product.otherImgs.map((img, i) => (
-                                <div className="relative inline-block mt-4">
+                                <div className="relative max-w-sm mt-4">
                                 <img src={img} key={i}/>
                                 <svg 
                                     onClick={() => removeImage(img)}
-                                    className="w-6 h-6 top-0 right-0 absolute cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                    className="w-6 h-6 top-2 right-2 absolute cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                             </div>))
                         }
                     </div>

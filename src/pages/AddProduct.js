@@ -6,21 +6,46 @@ import { useToken } from "../hooks/useToken";
 import { useNavigate } from "react-router-dom";
 import { addProduct } from "../apiCalls/product.apiCall";
 
-const AddProduct = props => {
+const AddProduct = ({
+    _id, 
+    displayImg,
+    previewImg,
+    otherImgs,
+    title,
+    desc,
+    stock,
+    price,
+    cost,
+    category
+}) => {
+
     const navigate = useNavigate()
     const token = useToken()
 
-    const [product, setProduct, clearProduct] = useForm({
-        displayImg: '',
-        previewImg: '',
-        otherImgs: [],
-        title: '',
-        desc: '',
-        price: 0,
-        cost: 0,
-        category: 'beds',
-        stock: 1
-    })
+    const [product, setProduct, clearProduct] = useForm(_id? 
+        {
+            displayImg: displayImg,
+            previewImg: previewImg,
+            otherImgs: otherImgs,
+            title: title,
+            desc: desc,
+            price: price,
+            cost: cost,
+            category: category,
+            stock: stock
+        }:
+        
+        {
+            displayImg: '',
+            previewImg: '',
+            otherImgs: [],
+            title: '',
+            desc: '',
+            price: 0,
+            cost: 0,
+            category: 'beds',
+            stock: 1
+        })
 
     const handleChangeImage = e => {
         console.log(e.target);

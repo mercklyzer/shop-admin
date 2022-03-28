@@ -23,10 +23,29 @@ export const addProduct = async (token, navigate, product) => {
     }
 }
 
-export const getProduct = async (token) => {
+export const getProducts = async (token) => {
     try{
         const res = await axios.get(
             `${baseUrl}/products`,
+            {
+                headers: {
+                    Authorization: token
+                }
+            }
+        )
+
+        return [res.data, null]
+    }
+    catch(err){
+        console.log(err.response);
+        return [null, err.response.data]
+    }
+}
+
+export const getProduct = async (token, id) => {
+    try{
+        const res = await axios.get(
+            `${baseUrl}/products/find/${id}`,
             {
                 headers: {
                     Authorization: token

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { getProduct } from "../apiCalls/product.apiCall"
+import { getProducts } from "../apiCalls/product.apiCall"
 import { useToken } from "../hooks/useToken"
 
 const Products = (props) => {
@@ -12,7 +12,7 @@ const Products = (props) => {
 
     useEffect(async () => {
         setIsLoading(true)
-        const [data, err] = await getProduct(token)
+        const [data, err] = await getProducts(token)
         if(data){
             console.log(data);
             setProducts(data)
@@ -57,7 +57,12 @@ const Products = (props) => {
                             <td className="p-2">{stock}</td>
                             <td className="p-2">${price}.00</td>
                             <td className="">
-                                <div className="mr-4 inline-block px-4 py-1 bg-emerald-600 text-white rounded-lg cursor-pointer hover:bg-emerald-800 duration-150">Edit</div>
+                                <div 
+                                    className="mr-4 inline-block px-4 py-1 bg-emerald-600 text-white rounded-lg cursor-pointer hover:bg-emerald-800 duration-150"
+                                    onClick={() => navigate(`/products/edit/${_id}`)}
+                                >
+                                        Edit
+                                </div>
                                 <svg class="w-6 h-6 inline-block stroke-red-900 hover:stroke-red-600 duration-100 cursor-pointer" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                             </td>
                         </tr>)

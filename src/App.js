@@ -17,7 +17,14 @@ function App() {
       <Router>
         <Routes>
           <Route path='/login' exact element={<Login />} />
-          {['/', '/products', '/products/add', '/orders', '/users', '/products/edit/:productId'].map((path, i) => <Route path={path} key={i} element={<Main />} />)}
+          {[
+            '/', 
+            '/products', 
+            '/products/add', 
+            '/orders', 
+            '/users', 
+            '/products/edit/:productId'
+          ].map((path, i) => <Route path={path} key={i} element={<Main />} />)}
           
         </Routes>
       </Router>

@@ -117,14 +117,19 @@ const AddProduct = ({
         setProduct(otherImgs)
     }
 
-    const onAddProduct = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault()
-        addProduct(token, navigate, product)
+        if(_id){
+            console.log("edit Product");
+        }
+        else{
+            addProduct(token, navigate, product)
+        }
     }
 
     return(
         <div className="p-6 shadow-xl bg-white rounded-lg">
-            <div className="text-2xl font-bold">New Product</div>
+            <div className="text-2xl font-bold">{_id? 'Edit Product' :'New Product'}</div>
 
             <form>
                 <div className="mt-4">
@@ -221,9 +226,9 @@ const AddProduct = ({
                 <div className="mt-8">
                     <button 
                         type="submit"
-                        onClick={(e) => onAddProduct(e)}
+                        onClick={(e) => handleSubmit(e)}
                         className="px-6 py-2 bg-black text-white rounded-md hover:bg-zinc-800 duration-100">
-                        Create
+                        {_id? 'Edit':'Create'}
                     </button>
                 </div>
             </form>

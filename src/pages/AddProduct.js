@@ -4,7 +4,7 @@ import app from "../firebase";
 import useForm from "../hooks/useForm";
 import { useToken } from "../hooks/useToken";
 import { useNavigate } from "react-router-dom";
-import { addProduct } from "../apiCalls/product.apiCall";
+import { addProduct, editProduct } from "../apiCalls/product.apiCall";
 
 const AddProduct = ({
     _id, 
@@ -21,6 +21,7 @@ const AddProduct = ({
 
     const navigate = useNavigate()
     const token = useToken()
+    const [isLoading, setIsLoading] = useState(false)
 
     const [product, setProduct, clearProduct] = useForm(_id? 
         {
@@ -117,14 +118,19 @@ const AddProduct = ({
         setProduct(otherImgs)
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
+        setIsLoading(true)
         e.preventDefault()
+        
         if(_id){
+            await editProduct(token, _id, product)
             console.log("edit Product");
         }
         else{
-            addProduct(token, navigate, product)
+            await addProduct(token, product)
         }
+        navigate('/products')
+        setIsLoading(false)
     }
 
     return(

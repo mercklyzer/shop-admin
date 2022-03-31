@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const baseUrl = "http://localhost:5000"
 
-export const addProduct = async (token, navigate, product) => {
+export const addProduct = async (token, product) => {
     try{
         console.log(product);
         const res = await axios.post(
@@ -16,18 +16,18 @@ export const addProduct = async (token, navigate, product) => {
         )
 
         console.log(res.data);
-        navigate('/products')
     }
     catch(err){
         console.log(err.response);
     }
 }
 
-export const editProduct = async (token, navigate, product) => {
+export const editProduct = async (token, id, product) => {
+    console.log(id);
     try{
         console.log(product);
         const res = await axios.put(
-            `${baseUrl}/products`,
+            `${baseUrl}/products/${id}`,
             product,
             {
                 headers: {
@@ -37,7 +37,6 @@ export const editProduct = async (token, navigate, product) => {
         )
 
         console.log(res.data);
-        navigate('/products')
     }
     catch(err){
         console.log(err.response);

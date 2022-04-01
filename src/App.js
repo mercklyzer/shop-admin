@@ -23,7 +23,8 @@ function App() {
             '/products/add', 
             '/orders', 
             '/users', 
-            '/products/edit/:productId'
+            '/products/edit/:productId',
+            '/orders'
           ].map((path, i) => <Route path={path} key={i} element={<Main />} />)}
           
         </Routes>

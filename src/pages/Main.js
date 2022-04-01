@@ -5,6 +5,7 @@ import Sidebar from "../components/Sidebar"
 import AddProduct from "./AddProduct"
 import Dashboard from "./Dashboard"
 import EditProduct from "./EditProduct"
+import Orders from "./Orders"
 import Products from "./Products"
 
 const Main = () => {
@@ -20,6 +21,7 @@ const Main = () => {
             {route === '/products' && <Products />}
             {route === '/products/add' && <AddProduct />}
             {route === `/products/edit/${productId}` && <EditProduct id={productId} />}
+            {route === `/orders` && <Orders />}
         </Content>
     </>
     )

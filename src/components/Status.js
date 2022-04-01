@@ -1,18 +1,19 @@
 import React from "react"
 
-const getClassNames = (content) => {
+const getClassNames = (status) => {
+    status = status.toLowerCase()
     const classNames =  {
         completed: 'px-2 py-1 bg-green-300 text-emerald-800 rounded-lg',
         pending: ''
     }
 
-    return classNames[content]
+    return classNames[status]
 }
 
-const Status = ({content, className}) => {
+const Status = ({status, className}) => {
     
     return (
-        <span className={`${getClassNames(content)} ${className}`}>{content}</span>
+        <span className={`${getClassNames(status)} ${className}`}>{status}</span>
     )
 }
 

@@ -1,4 +1,5 @@
 import React from "react"
+import Status from "./Status"
 
 const transactionsData = [
     {
@@ -67,7 +68,7 @@ const transactionRow = (name, transactionDate, amount, status) => {
             <td className="p-2">{transactionDate}</td>
             <td className="p-2">${amount}.00</td>
             <td className="">
-                <span className="px-2 py-1 bg-green-300 text-emerald-800 rounded-lg ">{status}</span>
+                <Status content={status} />
             </td>
         </tr>
     )

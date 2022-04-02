@@ -57,7 +57,7 @@ const Orders = (props) => {
                             </td>
                             <td className="p-2 group-hover:font-semibold group-hover:text-slate-700">Lyzer Bautista</td>
                             <td className="p-2 group-hover:font-semibold group-hover:text-slate-700">{moment(createdAt).subtract(10, 'days').calendar()}</td>
-                            <td className=""><Status status={status}/></td>
+                            <td className=""><Status className="group-hover:font-semibold" status={status}/></td>
                             <td className="p-2 group-hover:font-semibold group-hover:text-slate-700">${total}.00</td>
                         </tr>))
                     }

@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { getProducts } from "../apiCalls/product.apiCall"
+import { getOrders } from "../apiCalls/order.apiCall"
 import Status from "../components/Status"
 import { useToken } from "../hooks/useToken"
+import moment from 'moment-timezone'
 
 const Orders = (props) => {
     const navigate = useNavigate()
     const token = useToken()
-    const [products, setProducts] = useState([])
+    const [orders, setOrders] = useState([])
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(async () => {
         setIsLoading(true)
-        const [data, err] = await getProducts(token)
+        const [data, err] = await getOrders(token)
         if(data){
             console.log(data);
-            setProducts(data)
+            setOrders(data)
         }
         if(err){
             setError(err)
@@ -42,14 +43,14 @@ const Orders = (props) => {
                 </thead>
                 <tbody>
                     {
-                        products && products.map(({_id, title, stock, price}, i) => <tr className="rounded-full group hover:bg-primary-100 cursor-pointer" key={i}>
+                        orders && orders.map(({_id, createdAt, status, total}, i) => <tr className="rounded-full group hover:bg-primary-100 cursor-pointer" key={i}>
                             <td className="p-2 flex items-center">
-                                <div className="font-semibold">AL0012343ORDER</div>
+                                <div className="font-semibold">{_id}</div>
                             </td>
                             <td className="p-2 group-hover:font-semibold group-hover:text-slate-700">Lyzer Bautista</td>
-                            <td className="p-2 group-hover:font-semibold group-hover:text-slate-700">12/12/2022</td>
-                            <td className=""><Status status='Completed'/></td>
-                            <td className="p-2 group-hover:font-semibold group-hover:text-slate-700">${price}.00</td>
+                            <td className="p-2 group-hover:font-semibold group-hover:text-slate-700">{moment(createdAt).subtract(10, 'days').calendar()}</td>
+                            <td className=""><Status status={status}/></td>
+                            <td className="p-2 group-hover:font-semibold group-hover:text-slate-700">${total}.00</td>
                         </tr>)
                     }
                 </tbody>

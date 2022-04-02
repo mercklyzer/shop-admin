@@ -68,7 +68,7 @@ const transactionRow = (name, transactionDate, amount, status) => {
             <td className="p-2">{transactionDate}</td>
             <td className="p-2">${amount}.00</td>
             <td className="">
-                <Status content={status} />
+                <Status status={status} />
             </td>
         </tr>
     )

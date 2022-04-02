@@ -4,7 +4,7 @@ const getClassNames = (status) => {
     status = status.toLowerCase()
     const classNames =  {
         completed: 'px-2 py-1 bg-green-300 text-emerald-800 rounded-lg',
-        pending: ''
+        pending: 'px-2 py-1 text-orange-500 bg-yellow-200 rounded-lg'
     }
 
     return classNames[status]

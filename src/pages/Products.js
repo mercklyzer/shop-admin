@@ -42,6 +42,7 @@ const Products = (props) => {
                 <thead>
                     <tr className="">
                         <th className="text-left p-2 text-lg">Product</th>
+                        <th className="text-left p-2 text-lg">Category</th>
                         <th className="text-left p-2 text-lg">Stock</th>
                         <th className="text-left p-2 text-lg">Price</th>
                         <th className="text-left p-2 text-lg">Action</th>
@@ -49,11 +50,12 @@ const Products = (props) => {
                 </thead>
                 <tbody>
                     {
-                        products && products.map(({_id, title, stock, price}, i) => <tr key={i}>
+                        products && products.map(({_id, title, category, stock, price}, i) => <tr key={i}>
                             <td className="p-2 flex items-center">
                                 <div className="w-10 h-10 bg-red-900 rounded-full"></div>
                                 <div className="ml-4 font-semibold">{title}</div>
                             </td>
+                            <td className="p-2 capitalize">{category}</td>
                             <td className="p-2">{stock}</td>
                             <td className="p-2">${price}.00</td>
                             <td className="">

@@ -5,12 +5,13 @@ import Sidebar from "../components/Sidebar"
 import AddProduct from "./AddProduct"
 import Dashboard from "./Dashboard"
 import EditProduct from "./EditProduct"
+import Order from "./Order"
 import Orders from "./Orders"
 import Products from "./Products"
 
 const Main = () => {
     let location = useLocation()
-    const {productId} = useParams()
+    const {productId, orderId} = useParams()
     const route = location.pathname
 
     return (
@@ -22,6 +23,8 @@ const Main = () => {
             {route === '/products/add' && <AddProduct />}
             {route === `/products/edit/${productId}` && <EditProduct id={productId} />}
             {route === `/orders` && <Orders />}
+            {route === `/orders/${orderId}` && <Order id={orderId}/>}
+            
         </Content>
     </>
     )

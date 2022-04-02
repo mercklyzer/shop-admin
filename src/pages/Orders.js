@@ -28,10 +28,13 @@ const Orders = (props) => {
 
 
     return (
+        <>
+        
         <div className="p-6 shadow-xl bg-white rounded-lg">
             <div className="text-2xl font-bold">Orders</div>
-
-            <table className="w-full mt-16">
+        </div>
+        <div className="mt-6 p-6 shadow-xl bg-white rounded-lg">
+            <table className="w-full">
                 <thead>
                     <tr className="">
                         <th className="text-left p-2 text-lg">ID</th>
@@ -43,7 +46,12 @@ const Orders = (props) => {
                 </thead>
                 <tbody>
                     {
-                        orders && orders.map(({_id, createdAt, status, total}, i) => <tr className="rounded-full group hover:bg-primary-100 cursor-pointer" key={i}>
+                        orders && orders.map(({_id, createdAt, status, total}, i) => (
+                        <tr 
+                            className="rounded-full group hover:bg-primary-100 cursor-pointer" 
+                            key={i}
+                            onClick={() => navigate(`/orders/${_id}`)}
+                        >
                             <td className="p-2 flex items-center">
                                 <div className="font-semibold">{_id}</div>
                             </td>
@@ -51,11 +59,12 @@ const Orders = (props) => {
                             <td className="p-2 group-hover:font-semibold group-hover:text-slate-700">{moment(createdAt).subtract(10, 'days').calendar()}</td>
                             <td className=""><Status status={status}/></td>
                             <td className="p-2 group-hover:font-semibold group-hover:text-slate-700">${total}.00</td>
-                        </tr>)
+                        </tr>))
                     }
                 </tbody>
             </table>
         </div>
+        </>
     )
 }
 

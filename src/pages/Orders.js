@@ -12,18 +12,21 @@ const Orders = (props) => {
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
 
-    useEffect(async () => {
-        setIsLoading(true)
-        const [data, err] = await getOrders(token)
-        if(data){
-            console.log(data);
-            setOrders(data)
+    useEffect(() => {
+        const fetchData = async () => {
+            setIsLoading(true)
+            const [data, err] = await getOrders(token)
+            if(data){
+                console.log(data);
+                setOrders(data)
+            }
+            if(err){
+                setError(err)
+            }
+            setIsLoading(false)
         }
-        if(err){
-            setError(err)
-        }
-        setIsLoading(false)
-        
+
+        fetchData()        
     }, [])
 
 

@@ -87,6 +87,14 @@ const Product = ({id}) => {
                         </tbody>
                     </table>
 
+                    <div>
+                        <div 
+                            onClick={() => navigate(`/products/edit/${id}`)}
+                            className="mt-16 mr-4 inline-block px-4 py-1 bg-emerald-600 text-white rounded-lg cursor-pointer hover:bg-emerald-800 duration-150">
+                            Edit
+                        </div>
+                    </div>
+
                 </div>
             </div>
 

@@ -22,7 +22,18 @@ const Orders = (props) => {
     useEffect(() => {
         const fetchData = async () => {
             setIsLoading(true)
-            const [data, err] = await getOrders(token)
+            let fields = Object.keys(sorter)
+            let chosenField = ''
+            let sort = ''
+            for(let field of fields){
+                if(sorter[field] !== ''){
+                    chosenField = field
+                    sort = sorter[field]
+                    break;
+                }
+            }
+
+            const [data, err] = await getOrders(token, chosenField, sort)
             if(data){
                 console.log(data);
                 setOrders(data)
@@ -34,8 +45,7 @@ const Orders = (props) => {
         }
 
         fetchData()        
-    }, [])
-
+    }, [sorter])
 
     return (
         <>
@@ -50,32 +60,31 @@ const Orders = (props) => {
                         <th className="text-left p-2 text-lg">ID</th>
                        
                         {[
-                                {field: 'User', value: 'user'},
-                                {field: 'Order Date', value: 'orderDate'},
-                                {field: 'Status', value: 'status'},
-                                {field: 'Amount', value: 'amount'},
-                            ].map(({field, value}, i) => {
-                                if(sorter[value] !== 'desc'){
-                                    return <th className="text-left p-2 text-lg" key={i}>
-                                        {field}
-                                        <svg 
-                                        onClick={() => setSorter(value)}
-                                        className={`ml-2 w-6 h-6 inline ${sorter[value]? 'stroke-primary-400': 'stroke-gray-400'} cursor-pointer`} 
-                                        fill="none" stroke="" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"></path></svg>
-                                    </th>
-                                }
+                            {field: 'User', value: 'user'},
+                            {field: 'Order Date', value: 'orderDate'},
+                            {field: 'Status', value: 'status'},
+                            {field: 'Amount', value: 'amount'},
+                        ].map(({field, value}, i) => {
+                            if(sorter[value] !== 'desc'){
+                                return <th className="text-left p-2 text-lg" key={i}>
+                                    {field}
+                                    <svg 
+                                    onClick={() => setSorter(value)}
+                                    className={`ml-2 w-6 h-6 inline ${sorter[value]? 'stroke-primary-400': 'stroke-gray-400'} cursor-pointer`} 
+                                    fill="none" stroke="" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"></path></svg>
+                                </th>
+                            }
 
-                                else if(sorter[value] === 'desc'){
-                                    return <th className="text-left p-2 text-lg" key={i}>
-                                        {field}
-                                        <svg 
-                                        onClick={() => setSorter(value)} 
-                                        className={`ml-2 w-6 h-6 inline stroke-primary-400 cursor-pointer`} 
-                                        fill="none" stroke="" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"></path></svg>
-                                    </th>
-                                }
-                            })
-                        }
+                            else if(sorter[value] === 'desc'){
+                                return <th className="text-left p-2 text-lg" key={i}>
+                                    {field}
+                                    <svg 
+                                    onClick={() => setSorter(value)} 
+                                    className={`ml-2 w-6 h-6 inline stroke-primary-400 cursor-pointer`} 
+                                    fill="none" stroke="" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"></path></svg>
+                                </th>
+                            }
+                        })}
 
                     </tr>
                 </thead>

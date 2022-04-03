@@ -1,19 +1,18 @@
-import React, { useState } from "react"
+import { useState } from "react"
 
-const useSorter = (initialValues) => {
+const useSorter = (initialValues, initialField) => {
     const [values, setValues] = useState(initialValues)
 
     return [
         values,
         (field) => {
-            console.log("field", field);
             let sortValue = 'asc'
 
             if(values[field] === 'asc'){
                 sortValue = 'desc'
             }
-
-            setValues({...initialValues, product:'', [field]: sortValue})
+            
+            setValues({...initialValues, [initialField]:'', [field]: sortValue})
         }
     ]
 }

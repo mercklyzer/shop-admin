@@ -17,7 +17,7 @@ const Products = (props) => {
         stock: '',
         price: '',
         lastModified: ''
-    })
+    }, 'product')
 
     useEffect(async () => {
         setIsLoading(true)
@@ -34,8 +34,8 @@ const Products = (props) => {
         }
 
         const [data, err] = await getProducts(token, chosenField, sort)
+        console.log(data);
         if(data){
-            console.log(data);
             setProducts(data)
         }
         if(err){
@@ -71,7 +71,7 @@ const Products = (props) => {
                                 {field: 'Last Modified', value: 'lastModified'}
                             ].map(({field, value}, i) => {
                                 if(sorter[value] !== 'desc'){
-                                    return <th className="text-left p-2 text-lg">
+                                    return <th className="text-left p-2 text-lg" key={i}>
                                         {field}
                                         <svg 
                                         onClick={() => setSorter(value)}
@@ -81,7 +81,7 @@ const Products = (props) => {
                                 }
 
                                 else if(sorter[value] === 'desc'){
-                                    return <th className="text-left p-2 text-lg">
+                                    return <th className="text-left p-2 text-lg" key={i}>
                                         {field}
                                         <svg 
                                         onClick={() => setSorter(value)} 
@@ -111,7 +111,7 @@ const Products = (props) => {
                             <td className="p-2 capitalize">{category}</td>
                             <td className="p-2">{stock}</td>
                             <td className="p-2">${price}.00</td>
-                            <td className="p-2">{moment(updatedAt).subtract(10, 'days').calendar()}</td>
+                            <td className="p-2">{moment(updatedAt).calendar()}</td>
                             <td className="">
                                 <div 
                                     className="mr-4 inline-block px-4 py-1 bg-emerald-600 text-white rounded-lg cursor-pointer hover:bg-emerald-800 duration-150"
@@ -119,7 +119,7 @@ const Products = (props) => {
                                 >
                                         Edit
                                 </div>
-                                <svg class="w-6 h-6 inline-block stroke-red-900 hover:stroke-red-600 duration-100 cursor-pointer" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                <svg className="w-6 h-6 inline-block stroke-red-900 hover:stroke-red-600 duration-100 cursor-pointer" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                             </td>
                         </tr>)
                     }

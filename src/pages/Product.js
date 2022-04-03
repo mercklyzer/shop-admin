@@ -77,6 +77,10 @@ const Product = ({id}) => {
                                 <td className=" pl-4 text-lg">${product.cost}.00</td>
                             </tr>
                             <tr>
+                                <td className="font-bold text-lg">Stock:</td>
+                                <td className=" pl-4 text-lg">{product.stock}</td>
+                            </tr>
+                            <tr>
                                 <td className="font-bold text-lg">Category:</td>
                                 <td className="capitalize pl-4 text-lg">{product.category}</td>
                             </tr>

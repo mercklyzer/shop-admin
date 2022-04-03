@@ -1,6 +1,8 @@
+import moment from "moment-timezone"
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { getProducts } from "../apiCalls/product.apiCall"
+import useSorter from "../hooks/useSorter"
 import { useToken } from "../hooks/useToken"
 
 const Products = (props) => {
@@ -9,6 +11,12 @@ const Products = (props) => {
     const [products, setProducts] = useState([])
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
+    const [sorter, setSorter] = useSorter({
+        product: 'asc',
+        stock: '',
+        price: '',
+        lastModified: ''
+    })
 
     useEffect(async () => {
         setIsLoading(true)
@@ -41,16 +49,43 @@ const Products = (props) => {
             <table className="w-full">
                 <thead>
                     <tr className="">
-                        <th className="text-left p-2 text-lg">Product</th>
-                        <th className="text-left p-2 text-lg">Category</th>
-                        <th className="text-left p-2 text-lg">Stock</th>
-                        <th className="text-left p-2 text-lg">Price</th>
-                        <th className="text-left p-2 text-lg">Action</th>
+                        {
+                            [
+                                'Product',
+                                'Category',
+                                'Stock',
+                                'Price',
+                                'Last Modified',
+                            ].map((field, i) => {
+                                if(sorter[field.toLowerCase()] !== 'desc'){
+                                    return <th className="text-left p-2 text-lg">
+                                        {field}
+                                        <svg 
+                                        onClick={() => setSorter(field === 'Last Modified'? 'lastModified': field.toLowerCase())}
+                                        className={`ml-2 w-6 h-6 inline ${sorter[field.toLowerCase()]? 'stroke-primary-400': 'stroke-gray-400'} cursor-pointer`} 
+                                        fill="none" stroke="" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"></path></svg>
+                                    </th>
+                                }
+
+                                if(sorter[field.toLowerCase()] === 'desc'){
+                                    return <th className="text-left p-2 text-lg">
+                                        {field}
+                                        <svg 
+                                        onClick={() => setSorter(field === 'Last Modified'? 'lastModified': field.toLowerCase())} 
+                                        className={`ml-2 w-6 h-6 inline stroke-primary-400 cursor-pointer`} 
+                                        fill="none" stroke="" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"></path></svg>
+                                    </th>
+                                }
+                            })
+                        }
+                        <th className="text-left p-2 text-lg">
+                            Action
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        products && products.map(({_id, title, displayImg, category, stock, price}, i) => <tr key={i}>
+                        products && products.map(({_id, title, displayImg, category, stock, price, updatedAt}, i) => <tr key={i}>
                             <td 
                                 className="p-2 flex items-center cursor-pointer group"
                                 onClick={() => navigate(`/products/${_id}`)}
@@ -63,6 +98,7 @@ const Products = (props) => {
                             <td className="p-2 capitalize">{category}</td>
                             <td className="p-2">{stock}</td>
                             <td className="p-2">${price}.00</td>
+                            <td className="p-2">{moment(updatedAt).subtract(10, 'days').calendar()}</td>
                             <td className="">
                                 <div 
                                     className="mr-4 inline-block px-4 py-1 bg-emerald-600 text-white rounded-lg cursor-pointer hover:bg-emerald-800 duration-150"

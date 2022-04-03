@@ -39,3 +39,26 @@ export const getOrder = async (token, productId) => {
         return [null, err.response.data]
     }
 }
+
+// can only change "pending" to "completed"
+export const changeStatus = async (token, newStatus, orderId) => {
+    try{
+        const res = await axios.put(
+            `${baseUrl}/orders/${orderId}`,
+            {
+                status: newStatus
+            },
+            {
+                headers: {
+                    Authorization: token
+                }
+            }
+        )
+
+        return [res.data, null]
+    }
+    catch(err){
+        console.log(err.response);
+        return [null, err.response.data]
+    }
+}

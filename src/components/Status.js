@@ -10,10 +10,10 @@ const getClassNames = (status) => {
     return classNames[status]
 }
 
-const Status = ({status, className}) => {
+const Status = ({status, className, onClick}) => {
     
     return (
-        <span className={`${getClassNames(status)} ${className}`}>{status}</span>
+        <span className={`${getClassNames(status)} ${className}`} onClick={onClick}>{status}</span>
     )
 }
 

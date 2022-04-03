@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getOrder } from "../apiCalls/order.apiCall";
+import { changeStatus, getOrder } from "../apiCalls/order.apiCall";
 import Status from "../components/Status";
 import { useToken } from "../hooks/useToken";
 import moment from 'moment-timezone'
@@ -8,6 +8,7 @@ import OrderProduct from "../components/OrderProduct";
 const Order = ({id}) => {
     // const [isLoading, setIsLoading] = useState(false)
     const [order, setOrder] = useState(null)
+    const [showStatusOptions, setShowStatusOption] = useState(false)
     const token = useToken()
 
     useEffect(() => {
@@ -21,6 +22,17 @@ const Order = ({id}) => {
         fetchData()
     }, [token, id])
 
+    const onChangeStatus = async (newStatus) => {
+        console.log("on change status");
+        let [res, err] = await changeStatus(token, newStatus, id)
+        if(res){
+            setOrder(order => ({...order, status:newStatus}))
+        }
+        if(err){
+            console.log(err);
+        }
+    } 
+
 
     return (
    
@@ -30,7 +42,12 @@ const Order = ({id}) => {
                 <div className="text-2xl font-bold">Order ID: {id}</div>
                 <div>{moment(order.createdAt).subtract(10, 'days').calendar()}</div>
             </div>
-            <div className="text-lg font-semibold">Status: <Status status={order.status}/></div>
+            <div className="text-lg font-semibold relative">
+                Status: <Status className="cursor-pointer select-none" status={order.status} onClick={() => setShowStatusOption((val) => !val)}/>
+                    <div className={`top-full right-0  flex-col absolute ${showStatusOptions && order.status === 'Pending'? 'flex': 'hidden'}`}>
+                        <Status className="mt-2 block cursor-pointer" onClick={() => onChangeStatus('Completed')} status={'Completed'}/>
+                    </div>
+            </div>
         </div>
 
         <div className="p-6 shadow-xl bg-white rounded-lg mt-6">

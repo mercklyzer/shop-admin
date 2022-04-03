@@ -43,10 +43,10 @@ export const editProduct = async (token, id, product) => {
     }
 }
 
-export const getProducts = async (token) => {
+export const getProducts = async (token, field, sort) => {
     try{
         const res = await axios.get(
-            `${baseUrl}/products`,
+            `${baseUrl}/products?field=${field}&sort=${sort}`,
             {
                 headers: {
                     Authorization: token

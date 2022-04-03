@@ -13,6 +13,7 @@ const Products = (props) => {
     const [isLoading, setIsLoading] = useState(true)
     const [sorter, setSorter] = useSorter({
         product: 'asc',
+        category: '',
         stock: '',
         price: '',
         lastModified: ''
@@ -20,7 +21,19 @@ const Products = (props) => {
 
     useEffect(async () => {
         setIsLoading(true)
-        const [data, err] = await getProducts(token)
+
+        let fields = Object.keys(sorter)
+        let chosenField = ''
+        let sort = ''
+        for(let field of fields){
+            if(sorter[field] !== ''){
+                chosenField = field
+                sort = sorter[field]
+                break;
+            }
+        }
+
+        const [data, err] = await getProducts(token, chosenField, sort)
         if(data){
             console.log(data);
             setProducts(data)
@@ -30,7 +43,7 @@ const Products = (props) => {
         }
         setIsLoading(false)
         
-    }, [])
+    }, [sorter])
 
 
     return (
@@ -51,27 +64,27 @@ const Products = (props) => {
                     <tr className="">
                         {
                             [
-                                'Product',
-                                'Category',
-                                'Stock',
-                                'Price',
-                                'Last Modified',
-                            ].map((field, i) => {
-                                if(sorter[field.toLowerCase()] !== 'desc'){
+                                {field: 'Product', value: 'product'},
+                                {field: 'Category', value: 'category'},
+                                {field: 'Stock', value: 'stock'},
+                                {field: 'Price', value: 'price'},
+                                {field: 'Last Modified', value: 'lastModified'}
+                            ].map(({field, value}, i) => {
+                                if(sorter[value] !== 'desc'){
                                     return <th className="text-left p-2 text-lg">
                                         {field}
                                         <svg 
-                                        onClick={() => setSorter(field === 'Last Modified'? 'lastModified': field.toLowerCase())}
-                                        className={`ml-2 w-6 h-6 inline ${sorter[field.toLowerCase()]? 'stroke-primary-400': 'stroke-gray-400'} cursor-pointer`} 
+                                        onClick={() => setSorter(value)}
+                                        className={`ml-2 w-6 h-6 inline ${sorter[value]? 'stroke-primary-400': 'stroke-gray-400'} cursor-pointer`} 
                                         fill="none" stroke="" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"></path></svg>
                                     </th>
                                 }
 
-                                if(sorter[field.toLowerCase()] === 'desc'){
+                                else if(sorter[value] === 'desc'){
                                     return <th className="text-left p-2 text-lg">
                                         {field}
                                         <svg 
-                                        onClick={() => setSorter(field === 'Last Modified'? 'lastModified': field.toLowerCase())} 
+                                        onClick={() => setSorter(value)} 
                                         className={`ml-2 w-6 h-6 inline stroke-primary-400 cursor-pointer`} 
                                         fill="none" stroke="" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"></path></svg>
                                     </th>

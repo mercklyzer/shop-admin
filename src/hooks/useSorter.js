@@ -6,14 +6,14 @@ const useSorter = (initialValues) => {
     return [
         values,
         (field) => {
-            console.log("field");
+            console.log("field", field);
             let sortValue = 'asc'
 
             if(values[field] === 'asc'){
                 sortValue = 'desc'
             }
 
-            setValues({initialValues, [field]: sortValue})
+            setValues({...initialValues, product:'', [field]: sortValue})
         }
     ]
 }

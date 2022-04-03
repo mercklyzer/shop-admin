@@ -50,10 +50,15 @@ const Products = (props) => {
                 </thead>
                 <tbody>
                     {
-                        products && products.map(({_id, title, category, stock, price}, i) => <tr key={i}>
-                            <td className="p-2 flex items-center">
-                                <div className="w-10 h-10 bg-red-900 rounded-full"></div>
-                                <div className="ml-4 font-semibold">{title}</div>
+                        products && products.map(({_id, title, displayImg, category, stock, price}, i) => <tr key={i}>
+                            <td 
+                                className="p-2 flex items-center cursor-pointer group"
+                                onClick={() => navigate(`/products/${_id}`)}
+                            >
+                                <div className="w-10 h-10 rounded-full overflow-hidden">
+                                    <img src={displayImg} className="h-full w-full object-cover"/>
+                                </div>
+                                <div className="ml-4 font-semibold group-hover:underline">{title}</div>
                             </td>
                             <td className="p-2 capitalize">{category}</td>
                             <td className="p-2">{stock}</td>

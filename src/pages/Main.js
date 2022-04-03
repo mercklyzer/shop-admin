@@ -7,6 +7,7 @@ import Dashboard from "./Dashboard"
 import EditProduct from "./EditProduct"
 import Order from "./Order"
 import Orders from "./Orders"
+import Product from "./Product"
 import Products from "./Products"
 
 const Main = () => {
@@ -21,6 +22,7 @@ const Main = () => {
             {route === '/' && <Dashboard />}
             {route === '/products' && <Products />}
             {route === '/products/add' && <AddProduct />}
+            {route === `/products/${productId}` && <Product id={productId} />}
             {route === `/products/edit/${productId}` && <EditProduct id={productId} />}
             {route === `/orders` && <Orders />}
             {route === `/orders/${orderId}` && <Order id={orderId}/>}

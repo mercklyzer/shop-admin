@@ -15,6 +15,7 @@ function App() {
           {[
             '/', 
             '/products', 
+            '/products/:productId', 
             '/products/add', 
             '/orders', 
             '/users', 

@@ -11,26 +11,29 @@ import Product from "./Product"
 import Products from "./Products"
 import Users from "./Users"
 
+
+
 const Main = () => {
     let location = useLocation()
     const {productId, orderId} = useParams()
     const route = location.pathname
 
     return (
-    <>
-        <Sidebar className="col-span-2"/>
-        <Content className="col-span-10">
+    <div className="flex justify-stretch w-screen">
+        
+        <Sidebar className="w-[20%] max-w-[16rem] min-w-[6rem] h-screen"/>
+        <Content className={`flex-1 m-0`}>
             {route === '/' && <Dashboard />}
-            {route === '/users' && <Users />}
-            {route === '/products' && <Products />}
+            {route === '/users' && <Users className="min-w-[40rem]" />}
+            {route === '/products' && <Products className="min-w-[60rem]" />}
             {route === '/products/add' && <AddProduct />}
             {route === `/products/${productId}` && <Product id={productId} />}
             {route === `/products/edit/${productId}` && <EditProduct id={productId} />}
-            {route === `/orders` && <Orders />}
+            {route === `/orders` && <Orders className="min-w-[50rem]"/>}
             {route === `/orders/${orderId}` && <Order id={orderId}/>}
-            
         </Content>
-    </>
+        
+    </div>
     )
 }
 

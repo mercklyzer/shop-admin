@@ -11,7 +11,10 @@ module.exports = {
           300: '#8f89bf',
           400: '#50449c'
         }
-      }
+      },
+      screens: {
+        'custom-1': '1296px'
+      },
     },
   },
   plugins: [],

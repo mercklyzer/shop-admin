@@ -47,7 +47,7 @@ const Products = (props) => {
 
 
     return (
-        <div className="p-6 shadow-xl bg-white rounded-lg">
+        <div className={`p-6 shadow-xl bg-white rounded-lg ${props.className}`}>
             <div className="text-2xl font-bold">Products</div>
 
             <div className="flex justify-center items-cecnter">

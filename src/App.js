@@ -8,7 +8,8 @@ import Main from './pages/Main';
 
 function App() {
   return (
-    <div className="App grid grid-cols-12">
+    // <div className="App grid grid-cols-12">
+    <div className="App h-screen bg-primary-200 overflow-y-hidden">
       <Router>
         <Routes>
           <Route path='/login' exact element={<Login />} />

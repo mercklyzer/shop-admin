@@ -9,6 +9,7 @@ import Order from "./Order"
 import Orders from "./Orders"
 import Product from "./Product"
 import Products from "./Products"
+import Users from "./Users"
 
 const Main = () => {
     let location = useLocation()
@@ -20,6 +21,7 @@ const Main = () => {
         <Sidebar className="col-span-2"/>
         <Content className="col-span-10">
             {route === '/' && <Dashboard />}
+            {route === '/users' && <Users />}
             {route === '/products' && <Products />}
             {route === '/products/add' && <AddProduct />}
             {route === `/products/${productId}` && <Product id={productId} />}

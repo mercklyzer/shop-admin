@@ -35,7 +35,6 @@ const Orders = (props) => {
 
             const [data, err] = await getOrders(token, chosenField, sort)
             if(data){
-                console.log(data);
                 setOrders(data)
             }
             if(err){

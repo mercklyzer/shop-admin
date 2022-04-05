@@ -14,6 +14,7 @@ function App() {
           <Route path='/login' exact element={<Login />} />
           {[
             '/', 
+            '/users',
             '/products', 
             '/products/:productId', 
             '/products/add', 

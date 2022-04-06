@@ -21,10 +21,10 @@ export const login = async (dispatch, navigate, user) => {
 }
 
 
-export const getUsers = async (token) => {
+export const getUsers = async (token, field, sort) => {
     try{
         const res = await axios.get(
-            `${baseUrl}/users`,
+            `${baseUrl}/users?field=${field}&sort=${sort}`,
             {
                 headers: {
                     Authorization: token

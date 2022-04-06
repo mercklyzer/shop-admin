@@ -24,7 +24,7 @@ const Main = () => {
         <Sidebar className="w-[20%] max-w-[16rem] min-w-[6rem] h-screen"/>
         <Content className={`flex-1 m-0`}>
             {route === '/' && <Dashboard />}
-            {route === '/users' && <Users className="min-w-[40rem]" />}
+            {route === '/users' && <Users className="min-w-[48rem]" />}
             {route === '/products' && <Products className="min-w-[60rem]" />}
             {route === '/products/add' && <AddProduct />}
             {route === `/products/${productId}` && <Product id={productId} />}

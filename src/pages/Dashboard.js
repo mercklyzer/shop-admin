@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { getLatestTransactions } from "../apiCalls/order.apiCall";
 import { getMonthlyGrossSales, getMonthlyNetSales, getSalesStats } from "../apiCalls/product.apiCall";
 import { getNewMonthlyUsersCount, getNewUsers, getUserStats } from "../apiCalls/user.apiCall";
 import Chart from "../components/Chart";
@@ -17,7 +18,8 @@ const Dashboard = props => {
     monthlyGrossSales: true,
     usersChart: true,
     salesChart: true,
-    newUsers: true
+    newUsers: true,
+    latestTransactions: true
   })
 
   const [userStats, setUserStats] = useState([])
@@ -25,7 +27,8 @@ const Dashboard = props => {
   const [newMonthlyUsersCount, setNewMonthlyUsersCount] = useState(null)
   const [monthlyNetSales, setMonthlyNetSales] = useState(null)
   const [monthlyGrossSales, setMonthlyGrossSales] = useState(null)
-  const [newUsers, setNewUsers] = useState(null)
+  const [newUsers, setNewUsers] = useState([])
+  const [latestTransactions, setLatestTransactions] = useState([])
 
   useEffect(() => {
     const fetchUserStats = async () => {
@@ -90,6 +93,17 @@ const Dashboard = props => {
     fetchNewUsers()
   }, [])
 
+  useEffect(() => {
+    const fetchLatestTransactions = async () => {
+      setIsLoading(loaders => ({...loaders, latestTransactions: true}))
+      let [data, err] = await getLatestTransactions(token)
+      setLatestTransactions(data)
+      setIsLoading(loaders => ({...loaders, latestTransactions: false}))
+      console.log(data);
+    }
+    fetchLatestTransactions()
+  }, [])
+
 
   return (
     <div className={props.className}>
@@ -119,7 +133,7 @@ const Dashboard = props => {
             {newUsers && <NewUsersCard data={newUsers}/>}
           </div>
           <div className="col-span-2">
-            <LatestTransactionsCard />
+            {latestTransactions && <LatestTransactionsCard data={latestTransactions}/>}
           </div>
         </div>
     </div>

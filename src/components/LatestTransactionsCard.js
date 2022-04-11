@@ -1,38 +1,9 @@
 import React from "react"
 import Status from "./Status"
+import moment from 'moment-timezone'
 
-const transactionsData = [
-    {
-        firstName: "Lyzer",
-        lastName: "Bautista",
-        transactionDate: "24 May 2021",
-        amount: 144,
-        status: "Completed"
-    },
-    {
-        firstName: "Lyzer",
-        lastName: "Bautista",
-        transactionDate: "24 May 2021",
-        amount: 144,
-        status: "Completed"
-    },
-    {
-        firstName: "Lyzer",
-        lastName: "Bautista",
-        transactionDate: "24 May 2021",
-        amount: 144,
-        status: "Completed"
-    },
-    {
-        firstName: "Lyzer",
-        lastName: "Bautista",
-        transactionDate: "24 May 2021",
-        amount: 144,
-        status: "Completed"
-    },
-]
 
-const LatestTransactionsCard = props => {
+const LatestTransactionsCard = ({data}) => {
     return (
         <div className="p-6 shadow-xl bg-white rounded-lg">
             <div className="mb-4 font-semibold text-xl">Latest Transactions</div>
@@ -47,8 +18,8 @@ const LatestTransactionsCard = props => {
                 </thead>
                 <tbody>
                     {
-                        transactionsData.map(({firstName, lastName, transactionDate, amount, status}) => (
-                            transactionRow(firstName + " " + lastName, transactionDate, amount, status)
+                        data.map(({user, updatedAt, total, status}) => (
+                            transactionRow(user.firstName + " " + user.lastName, updatedAt, total, status)
                         ))
                     }
                     
@@ -62,10 +33,9 @@ const transactionRow = (name, transactionDate, amount, status) => {
     return (
         <tr>
             <td className="p-2 flex items-center">
-                <div className="w-10 h-10 bg-red-900 rounded-full"></div>
-                <div className="ml-4 font-semibold">{name}</div>
+                <div className="font-semibold">{name}</div>
             </td>
-            <td className="p-2">{transactionDate}</td>
+            <td className="p-2">{moment(transactionDate).calendar()}</td>
             <td className="p-2">${amount}.00</td>
             <td className="">
                 <Status status={status} />

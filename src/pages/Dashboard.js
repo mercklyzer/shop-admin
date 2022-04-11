@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { getMonthlyGrossSales, getMonthlyNetSales, getSalesStats } from "../apiCalls/product.apiCall";
-import { getNewMonthlyUsersCount, getUserStats } from "../apiCalls/user.apiCall";
+import { getNewMonthlyUsersCount, getNewUsers, getUserStats } from "../apiCalls/user.apiCall";
 import Chart from "../components/Chart";
 import LatestTransactionsCard from "../components/LatestTransactionsCard";
 import NewUsersCard from "../components/NewUsersCard";
@@ -10,7 +10,6 @@ import { useToken } from "../hooks/useToken";
 
 const Dashboard = props => {
   const token = useToken()
-  console.log(token);
 
   const [isLoading, setIsLoading] = useState({
     newMonthlyUsersCount: true,
@@ -18,6 +17,7 @@ const Dashboard = props => {
     monthlyGrossSales: true,
     usersChart: true,
     salesChart: true,
+    newUsers: true
   })
 
   const [userStats, setUserStats] = useState([])
@@ -25,6 +25,7 @@ const Dashboard = props => {
   const [newMonthlyUsersCount, setNewMonthlyUsersCount] = useState(null)
   const [monthlyNetSales, setMonthlyNetSales] = useState(null)
   const [monthlyGrossSales, setMonthlyGrossSales] = useState(null)
+  const [newUsers, setNewUsers] = useState(null)
 
   useEffect(() => {
     const fetchUserStats = async () => {
@@ -33,7 +34,6 @@ const Dashboard = props => {
       data = data.map(stat => ({...stat, name: `${stat.month} ${stat.year}`}))
       setUserStats(data)
       setIsLoading(loaders => ({...loaders, usersChart: false}))
-      console.log(data);
     }
     fetchUserStats()
   }, [])
@@ -45,7 +45,6 @@ const Dashboard = props => {
       data = data.map(stat => ({...stat, name: `${stat.month} ${stat.year}`}))
       setSalesStats(data)
       setIsLoading(loaders => ({...loaders, usersChart: false}))
-      console.log(data);
     }
     fetchSalestats()
   }, [])
@@ -56,7 +55,6 @@ const Dashboard = props => {
       let [data, err] = await getNewMonthlyUsersCount(token)
       setNewMonthlyUsersCount(data)
       setIsLoading(loaders => ({...loaders, newMonthlyUsersCount: false}))
-      console.log(data);
     }
     fetchNewMonthlyUsers()
   }, [])
@@ -67,7 +65,6 @@ const Dashboard = props => {
       let [data, err] = await getMonthlyNetSales(token)
       setMonthlyNetSales(data)
       setIsLoading(loaders => ({...loaders, monthlyNetSales: false}))
-      console.log(data);
     }
     fetchMonthlyNetSales()
   }, [])
@@ -78,9 +75,19 @@ const Dashboard = props => {
       let [data, err] = await getMonthlyGrossSales(token)
       setMonthlyGrossSales(data)
       setIsLoading(loaders => ({...loaders, monthlyGrossSales: false}))
-      console.log(data);
     }
     fetchMonthlyGrossSales()
+  }, [])
+
+  useEffect(() => {
+    const fetchNewUsers = async () => {
+      setIsLoading(loaders => ({...loaders, newUsers: true}))
+      let [data, err] = await getNewUsers(token)
+      setNewUsers(data)
+      setIsLoading(loaders => ({...loaders, newUsers: false}))
+      console.log(data);
+    }
+    fetchNewUsers()
   }, [])
 
 
@@ -109,7 +116,7 @@ const Dashboard = props => {
 
         <div className="grid grid-cols-3 gap-8 mt-8">
           <div className="col-span-1">
-            <NewUsersCard />
+            {newUsers && <NewUsersCard data={newUsers}/>}
           </div>
           <div className="col-span-2">
             <LatestTransactionsCard />

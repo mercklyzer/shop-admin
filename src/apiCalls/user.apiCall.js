@@ -39,6 +39,25 @@ export const getUsers = async (token, field, sort) => {
     }
 }
 
+export const getNewUsers = async (token) => {
+    try{
+        const res = await axios.get(
+            `${baseUrl}/users?new`,
+            {
+                headers: {
+                    Authorization: token
+                }
+            }
+        )
+
+        return [res.data, null]
+    }
+    catch(err){
+        console.log(err.response);
+        return [null, err.response.data]
+    }
+}
+
 export const getUserStats = async (token) => {
     try{
         const res = await axios.get(

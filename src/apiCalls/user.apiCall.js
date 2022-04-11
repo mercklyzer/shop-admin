@@ -20,11 +20,29 @@ export const login = async (dispatch, navigate, user) => {
     }
 }
 
-
 export const getUsers = async (token, field, sort) => {
     try{
         const res = await axios.get(
             `${baseUrl}/users?field=${field}&sort=${sort}`,
+            {
+                headers: {
+                    Authorization: token
+                }
+            }
+        )
+
+        return [res.data, null]
+    }
+    catch(err){
+        console.log(err.response);
+        return [null, err.response.data]
+    }
+}
+
+export const getUserStats = async (token) => {
+    try{
+        const res = await axios.get(
+            `${baseUrl}/users/stats`,
             {
                 headers: {
                     Authorization: token

@@ -1,8 +1,10 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
+import { getUserStats } from "../apiCalls/user.apiCall";
 import Chart from "../components/Chart";
 import LatestTransactionsCard from "../components/LatestTransactionsCard";
 import NewUsersCard from "../components/NewUsersCard";
 import ReportCard from "../components/ReportCard";
+import { useToken } from "../hooks/useToken";
 
 const userData = [
 {
@@ -56,8 +58,33 @@ const userData = [
 ];
 
 const Dashboard = props => {
+  const token = useToken()
+
+  const [isLoading, setIsLoading] = useState({
+    revenue: true,
+    sales: true,
+    newUsers: true,
+    usersChart: true,
+    salesChart: true,
+  })
+
+  const [userStats, setUserStats] = useState([])
+
+  useEffect(() => {
+    const fetchUserStats = async () => {
+      setIsLoading(loaders => ({...loaders, usersChart: true}))
+      let [data, err] = await getUserStats(token)
+      data = data.map(stat => ({...stat, name: `${stat.month} ${stat.year}`}))
+      setUserStats(data)
+      setIsLoading(loaders => ({...loaders, usersChart: false}))
+      console.log(data);
+    }
+    fetchUserStats()
+  }, [])
+
+
   return (
-    <>
+    <div className={props.className}>
         <div className="grid grid-cols-3 gap-8 pb-8">
           <ReportCard />
           <ReportCard />
@@ -65,10 +92,18 @@ const Dashboard = props => {
         </div>
 
         <Chart
-            data={userData}
-            title="User Analytics"
+            data={userStats}
+            title="Sales Analytics"
             grid
-            dataKey="Active User"
+            dataKey="total"
+            className="mb-6"
+        />
+
+        <Chart
+            data={userStats}
+            title="New Users Analytics"
+            grid
+            dataKey="total"
         />
 
         <div className="grid grid-cols-3 gap-8 mt-8">
@@ -79,7 +114,7 @@ const Dashboard = props => {
             <LatestTransactionsCard />
           </div>
         </div>
-    </>
+    </div>
 
   )
 }

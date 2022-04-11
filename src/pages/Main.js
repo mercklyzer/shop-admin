@@ -19,11 +19,11 @@ const Main = () => {
     const route = location.pathname
 
     return (
-    <div className="flex justify-stretch w-screen">
+    <div className="flex">
         
-        <Sidebar className="w-[20%] max-w-[16rem] min-w-[6rem] h-screen"/>
-        <Content className={`flex-1 m-0`}>
-            {route === '/' && <Dashboard />}
+        <Sidebar className=" min-w-[2rem]"/>
+        <Content className={`flex-1 overflow-x-scroll`}>
+            {route === '/' && <Dashboard className="min-w-[60rem]"/>}
             {route === '/users' && <Users className="min-w-[48rem]" />}
             {route === '/products' && <Products className="min-w-[60rem]" />}
             {route === '/products/add' && <AddProduct />}

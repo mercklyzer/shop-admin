@@ -8,9 +8,9 @@ import {
     ResponsiveContainer,
   } from "recharts";
 
-const Chart = ({ title, data, dataKey, grid }) => {
+const Chart = ({ title, data, dataKey, grid, className }) => {
     return (
-        <div className="p-4 shadow-lg  rounded-lg bg-white">
+        <div className={`p-4 shadow-lg rounded-lg bg-white ${className}`}>
             <div className="font-bold text-lg">{title}</div>
             <ResponsiveContainer width="100%" aspect={4 / 1}>
                 <LineChart data={data}>

@@ -81,7 +81,7 @@ const Users = props => {
                     </thead>
                     {users && <tbody>
                         {users.map(({_id, firstName, lastName, email, createdAt, isAdmin, totalSpending}, i) => <tr className="cursor-pointer group hover:bg-primary-100">
-                            <td className="p-2 group-hover:font-semibold">{firstName} {lastName}</td>
+                            <td className="p-2 font-semibold">{firstName} {lastName}</td>
                             <td className="p-2 group-hover:font-semibold">{email}</td>
                             <td className="p-2 group-hover:font-semibold">{moment(createdAt).calendar()}</td>
                             <td className="p-2 group-hover:font-semibold">{isAdmin? <Role role='Admin'/> : <Role role='Ordinary'/>}</td>

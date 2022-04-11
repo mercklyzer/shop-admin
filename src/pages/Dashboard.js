@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { getMonthlyNetSales, getSalesStats } from "../apiCalls/product.apiCall";
+import { getMonthlyGrossSales, getMonthlyNetSales, getSalesStats } from "../apiCalls/product.apiCall";
 import { getNewMonthlyUsersCount, getUserStats } from "../apiCalls/user.apiCall";
 import Chart from "../components/Chart";
 import LatestTransactionsCard from "../components/LatestTransactionsCard";
@@ -13,10 +13,9 @@ const Dashboard = props => {
   console.log(token);
 
   const [isLoading, setIsLoading] = useState({
-    revenue: true,
-    sales: true,
     newMonthlyUsersCount: true,
     monthlyNetSales: true,
+    monthlyGrossSales: true,
     usersChart: true,
     salesChart: true,
   })
@@ -25,6 +24,7 @@ const Dashboard = props => {
   const [salesStats, setSalesStats] = useState([])
   const [newMonthlyUsersCount, setNewMonthlyUsersCount] = useState(null)
   const [monthlyNetSales, setMonthlyNetSales] = useState(null)
+  const [monthlyGrossSales, setMonthlyGrossSales] = useState(null)
 
   useEffect(() => {
     const fetchUserStats = async () => {
@@ -40,7 +40,7 @@ const Dashboard = props => {
 
   useEffect(() => {
     const fetchSalestats = async () => {
-      setIsLoading(loaders => ({...loaders, usersChart: true}))
+      setIsLoading(loaders => ({...loaders, salesChart: true}))
       let [data, err] = await getSalesStats(token)
       data = data.map(stat => ({...stat, name: `${stat.month} ${stat.year}`}))
       setSalesStats(data)
@@ -72,11 +72,22 @@ const Dashboard = props => {
     fetchMonthlyNetSales()
   }, [])
 
+  useEffect(() => {
+    const fetchMonthlyGrossSales = async () => {
+      setIsLoading(loaders => ({...loaders, monthlyGrossSales: true}))
+      let [data, err] = await getMonthlyGrossSales(token)
+      setMonthlyGrossSales(data)
+      setIsLoading(loaders => ({...loaders, monthlyGrossSales: false}))
+      console.log(data);
+    }
+    fetchMonthlyGrossSales()
+  }, [])
+
 
   return (
     <div className={props.className}>
         <div className="grid grid-cols-3 gap-8 pb-8">
-          <ReportCard />
+          {monthlyGrossSales && <ReportCard title="Gross Sales (in $)" figure={monthlyGrossSales.now} percentage={monthlyGrossSales.percentageIncrease}/>}
           {monthlyNetSales && <ReportCard title="Net Sales (in $)" figure={monthlyNetSales.now} percentage={monthlyNetSales.percentageIncrease}/>}
           {newMonthlyUsersCount && <ReportCard title="New Users" figure={newMonthlyUsersCount.now} percentage={newMonthlyUsersCount.percentageIncrease}/>}
         </div>

@@ -57,3 +57,22 @@ export const getUserStats = async (token) => {
         return [null, err.response.data]
     }
 }
+
+export const getNewMonthlyUsersCount = async (token) => {
+    try{
+        const res = await axios.get(
+            `${baseUrl}/users/new/count`,
+            {
+                headers: {
+                    Authorization: token
+                }
+            }
+        )
+
+        return [res.data, null]
+    }
+    catch(err){
+        console.log(err.response);
+        return [null, err.response.data]
+    }
+}

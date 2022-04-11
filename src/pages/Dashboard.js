@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { getSalesStats } from "../apiCalls/product.apiCall";
+import { getMonthlyNetSales, getSalesStats } from "../apiCalls/product.apiCall";
 import { getNewMonthlyUsersCount, getUserStats } from "../apiCalls/user.apiCall";
 import Chart from "../components/Chart";
 import LatestTransactionsCard from "../components/LatestTransactionsCard";
@@ -16,6 +16,7 @@ const Dashboard = props => {
     revenue: true,
     sales: true,
     newMonthlyUsersCount: true,
+    monthlyNetSales: true,
     usersChart: true,
     salesChart: true,
   })
@@ -23,6 +24,7 @@ const Dashboard = props => {
   const [userStats, setUserStats] = useState([])
   const [salesStats, setSalesStats] = useState([])
   const [newMonthlyUsersCount, setNewMonthlyUsersCount] = useState(null)
+  const [monthlyNetSales, setMonthlyNetSales] = useState(null)
 
   useEffect(() => {
     const fetchUserStats = async () => {
@@ -59,20 +61,31 @@ const Dashboard = props => {
     fetchNewMonthlyUsers()
   }, [])
 
+  useEffect(() => {
+    const fetchMonthlyNetSales = async () => {
+      setIsLoading(loaders => ({...loaders, monthlyNetSales: true}))
+      let [data, err] = await getMonthlyNetSales(token)
+      setMonthlyNetSales(data)
+      setIsLoading(loaders => ({...loaders, monthlyNetSales: false}))
+      console.log(data);
+    }
+    fetchMonthlyNetSales()
+  }, [])
+
 
   return (
     <div className={props.className}>
         <div className="grid grid-cols-3 gap-8 pb-8">
           <ReportCard />
-          <ReportCard />
+          {monthlyNetSales && <ReportCard title="Net Sales (in $)" figure={monthlyNetSales.now} percentage={monthlyNetSales.percentageIncrease}/>}
           {newMonthlyUsersCount && <ReportCard title="New Users" figure={newMonthlyUsersCount.now} percentage={newMonthlyUsersCount.percentageIncrease}/>}
         </div>
 
         <Chart
             data={salesStats}
-            title="Sales Analytics"
+            title="Net Sales Analytics (in $)"
             grid
-            dataKey="total"
+            dataKey="sales"
             className="mb-6"
         />
 

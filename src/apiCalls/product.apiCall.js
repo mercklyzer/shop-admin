@@ -100,3 +100,22 @@ export const getSalesStats = async (token) => {
     }
 }
 
+export const getMonthlyNetSales = async (token) => {
+    try{
+        const res = await axios.get(
+            `${baseUrl}/products/sales/monthly`,
+            {
+                headers: {
+                    Authorization: token
+                }
+            }
+        )
+
+        return [res.data, null]
+    }
+    catch(err){
+        console.log(err.response);
+        return [null, err.response.data]
+    }
+}
+

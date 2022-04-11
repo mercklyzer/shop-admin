@@ -81,4 +81,22 @@ export const getProduct = async (token, id) => {
     }
 }
 
+export const getSalesStats = async (token) => {
+    try{
+        const res = await axios.get(
+            `${baseUrl}/products/sales`,
+            {
+                headers: {
+                    Authorization: token
+                }
+            }
+        )
+
+        return [res.data, null]
+    }
+    catch(err){
+        console.log(err.response);
+        return [null, err.response.data]
+    }
+}
 

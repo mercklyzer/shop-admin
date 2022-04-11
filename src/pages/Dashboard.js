@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { getSalesStats } from "../apiCalls/product.apiCall";
 import { getUserStats } from "../apiCalls/user.apiCall";
 import Chart from "../components/Chart";
 import LatestTransactionsCard from "../components/LatestTransactionsCard";
@@ -69,6 +70,7 @@ const Dashboard = props => {
   })
 
   const [userStats, setUserStats] = useState([])
+  const [salesStats, setSalesStats] = useState([])
 
   useEffect(() => {
     const fetchUserStats = async () => {
@@ -82,6 +84,18 @@ const Dashboard = props => {
     fetchUserStats()
   }, [])
 
+  useEffect(() => {
+    const fetchSalestats = async () => {
+      setIsLoading(loaders => ({...loaders, usersChart: true}))
+      let [data, err] = await getSalesStats(token)
+      data = data.map(stat => ({...stat, name: `${stat.month} ${stat.year}`}))
+      setSalesStats(data)
+      setIsLoading(loaders => ({...loaders, usersChart: false}))
+      console.log(data);
+    }
+    fetchSalestats()
+  }, [])
+
 
   return (
     <div className={props.className}>
@@ -92,7 +106,7 @@ const Dashboard = props => {
         </div>
 
         <Chart
-            data={userStats}
+            data={salesStats}
             title="Sales Analytics"
             grid
             dataKey="total"

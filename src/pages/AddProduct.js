@@ -5,6 +5,7 @@ import useForm from "../hooks/useForm";
 import { useToken } from "../hooks/useToken";
 import { useNavigate } from "react-router-dom";
 import { addProduct, editProduct } from "../apiCalls/product.apiCall";
+import {RotatingLines} from 'react-loader-spinner'
 
 const AddProduct = ({
     _id, 
@@ -21,7 +22,11 @@ const AddProduct = ({
 
     const navigate = useNavigate()
     const token = useToken()
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState({
+        displayImg: false,
+        previewImg: false,
+        otherImgs: []
+    })
 
     const [product, setProduct, clearProduct] = useForm(_id? 
         {
@@ -51,6 +56,7 @@ const AddProduct = ({
     const handleChangeImage = e => {
         console.log(e.target);
         let imagesToUpload = Array.from(e.target.files)
+        setIsLoading((isLoading) => ({...isLoading, [e.target.name]: true}))     
         const storage = getStorage(app)
         const promises = []
 
@@ -80,7 +86,8 @@ const AddProduct = ({
                 }, 
                 async () => {
                     // Handle successful uploads on complete
-                    const downloadURL = await getDownloadURL(uploadTask.snapshot.ref)                        
+                    const downloadURL = await getDownloadURL(uploadTask.snapshot.ref)   
+                    setIsLoading((isLoading) => ({...isLoading, [e.target.name]: false}))                     
                     fulfill(downloadURL)
                 });
             })
@@ -129,8 +136,8 @@ const AddProduct = ({
         else{
             await addProduct(token, product)
         }
-        navigate('/products')
         setIsLoading(false)
+        navigate('/products')
     }
 
     return(
@@ -142,9 +149,10 @@ const AddProduct = ({
                     <div className="text-gray-700 font-semibold mb-2">Display Image</div>
                     <label className="inline-block cursor-pointer">
                         <input type="file" name="displayImg" className="hidden" onChange={(e) => handleChangeImage(e)} />
-                        <div className="py-2 px-2 bg-blue-600 hover:bg-blue-500 rounded-lg w-fit duration-100 ">
-                            <svg class="w-6 h-6 inline-block mr-2" fill="none" stroke="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-                            <span className="text-white duration-100">Upload Image</span>
+                        <div className="py-2 px-2 bg-blue-600 hover:bg-blue-500 rounded-lg w-fit duration-100 flex">
+                            {isLoading.displayImg && <RotatingLines width="20" strokeColor="white"/>}
+                            {!isLoading.displayImg && <svg className="w-6 h-6 inline-block" fill="none" stroke="white" viewBox="0 0 24 24" xmns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>}
+                            <span className="text-white duration-100 ml-2">Upload Image</span>
                         </div>
                     </label>
                     {product.displayImg && <div className="relative max-w-sm  mt-4">
@@ -159,9 +167,10 @@ const AddProduct = ({
                     <div className="text-gray-700 font-semibold mb-2">Preview Image</div>
                     <label className="inline-block cursor-pointer">
                         <input type="file" name="previewImg" className="hidden" onChange={(e) => handleChangeImage(e)} />
-                        <div className="py-2 px-2 bg-blue-600 hover:bg-blue-500 rounded-lg w-fit ">
-                            <svg class="w-6 h-6 inline-block mr-2" fill="none" stroke="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-                            <span className="text-white">Upload Image</span>
+                        <div className="py-2 px-2 bg-blue-600 hover:bg-blue-500 rounded-lg w-fit flex">
+                            {isLoading.previewImg && <RotatingLines width="20" strokeColor="white"/>}
+                            {!isLoading.previewImg && <svg className="w-6 h-6 inline-block" fill="none" stroke="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>}
+                            <span className="text-white ml-2">Upload Image</span>
                         </div>
                     </label>
                     
@@ -178,14 +187,14 @@ const AddProduct = ({
                     <label className="cursor-pointer inline-block">
                         <input type="file" className="hidden" name="otherImgs" onChange={(e) => handleChangeImage(e)} multiple/>
                         <div className="py-2 px-2 bg-blue-600 hover:bg-blue-500 rounded-lg">
-                            <svg class="w-6 h-6 inline-block mr-2" fill="none" stroke="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                            <svg className="w-6 h-6 inline-block mr-2" fill="none" stroke="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
                             <span className="text-white">Upload Images</span>
                         </div>
                     </label>
                     <div className="grid grid-cols-3 gap-4">
                         {
                             product.otherImgs.map((img, i) => (
-                                <div className="relative max-w-sm mt-4">
+                            <div className="relative max-w-sm mt-4">
                                 <img src={img} key={i}/>
                                 <svg 
                                     onClick={() => removeImage(img)}
@@ -202,7 +211,7 @@ const AddProduct = ({
 
                 <div className="mt-4">
                     <div className="text-gray-700 font-semibold mb-2">Description</div>
-                    <input className="border px-2 py-1 rounded-sm w-96" name="desc" onChange={(e) => setProduct(e)} value={product.desc} type="text" />
+                    <textarea rows="10" className="border px-2 py-1 rounded-sm w-96" name="desc" onChange={(e) => setProduct(e)} value={product.desc} type="text" />
                 </div>
 
                 <div className="mt-4">
@@ -220,6 +229,7 @@ const AddProduct = ({
                     <div className="text-gray-700 font-semibold mb-2">Category</div>
                     <select className="text-gray-700 font-semibold p-2" name="category" value={product.category} onChange={(e) => setProduct(e)}>
                         <option className="border px-2 py-1 rounded-sm w-96" value="beds">Bed</option>
+                        <option className="border px-2 py-1 rounded-sm w-96" value="chairs">Chair</option>
                         <option className="border px-2 py-1 rounded-sm w-96" value="pillows">Pillow</option>
                     </select>
                 </div>

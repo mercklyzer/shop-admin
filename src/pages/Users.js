@@ -4,8 +4,10 @@ import { useToken } from "../hooks/useToken";
 import moment from "moment-timezone";
 import Role from "../components/Role";
 import useSorter from "../hooks/useSorter";
+import { useNavigate } from "react-router-dom";
 
 const Users = props => {
+    const navigate = useNavigate()
     const token = useToken()
     const [users, setUsers] = useState([])
     const [isLoading, setIsLoading] = useState(false)
@@ -80,7 +82,7 @@ const Users = props => {
                         </tr>
                     </thead>
                     {users && <tbody>
-                        {users.map(({_id, firstName, lastName, email, createdAt, isAdmin, totalSpending}, i) => <tr className="cursor-pointer group hover:bg-primary-100">
+                        {users.map(({_id, firstName, lastName, email, createdAt, isAdmin, totalSpending}, i) => <tr className="cursor-pointer group hover:bg-primary-100" onClick={() => navigate(`/users/${_id}`)}>
                             <td className="p-2 font-semibold">{firstName} {lastName}</td>
                             <td className="p-2 group-hover:font-semibold">{email}</td>
                             <td className="p-2 group-hover:font-semibold">{moment(createdAt).calendar()}</td>

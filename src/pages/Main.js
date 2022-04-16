@@ -9,13 +9,14 @@ import Order from "./Order"
 import Orders from "./Orders"
 import Product from "./Product"
 import Products from "./Products"
+import User from "./User"
 import Users from "./Users"
 
 
 
 const Main = () => {
     let location = useLocation()
-    const {productId, orderId} = useParams()
+    const {userId, productId, orderId} = useParams()
     const route = location.pathname
 
     return (
@@ -25,6 +26,7 @@ const Main = () => {
         <Content className={`flex-1 overflow-x-scroll`}>
             {route === '/' && <Dashboard className="min-w-[60rem]"/>}
             {route === '/users' && <Users className="min-w-[48rem]" />}
+            {route === `/users/${userId}` && <User className="min-w-[48rem]" id={userId}/>}
             {route === '/products' && <Products className="min-w-[60rem]" />}
             {route === '/products/add' && <AddProduct />}
             {route === `/products/${productId}` && <Product id={productId} />}

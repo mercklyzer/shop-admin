@@ -39,6 +39,48 @@ export const getUsers = async (token, field, sort) => {
     }
 }
 
+export const getUser = async (token, userId) => {
+    try{
+        const res = await axios.get(
+            `${baseUrl}/users/find/${userId}`,
+            {
+                headers: {
+                    Authorization: token
+                }
+            }
+        )
+
+        return [res.data, null]
+    }
+    catch(err){
+        console.log(err.response);
+        return [null, err.response.data]
+    }
+}
+
+export const changeRole = async (token, newRole, userId) => {
+    try{
+        const res = await axios.put(
+            `${baseUrl}/users/${userId}`,
+            {
+                isAdmin: newRole === 'Admin' ? true : false
+            },
+            {
+                headers: {
+                    Authorization: token
+                }
+            }
+        )
+
+        return [res.data, null]
+    }
+    catch(err){
+        console.log(err.response);
+        return [null, err.response.data]
+    }
+}
+
+
 export const getNewUsers = async (token) => {
     try{
         const res = await axios.get(

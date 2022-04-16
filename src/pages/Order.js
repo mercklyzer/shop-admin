@@ -23,7 +23,6 @@ const Order = ({id}) => {
     }, [token, id])
 
     const onChangeStatus = async (newStatus) => {
-        console.log("on change status");
         let [res, err] = await changeStatus(token, newStatus, id)
         if(res){
             setOrder(order => ({...order, status:newStatus}))

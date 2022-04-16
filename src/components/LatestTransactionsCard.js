@@ -1,9 +1,12 @@
 import React from "react"
 import Status from "./Status"
 import moment from 'moment-timezone'
+import { useNavigate } from "react-router-dom"
 
 
 const LatestTransactionsCard = ({data}) => {
+    const navigate = useNavigate()
+
     return (
         <div className="p-6 shadow-xl bg-white rounded-lg">
             <div className="mb-4 font-semibold text-xl">Latest Transactions</div>
@@ -18,8 +21,8 @@ const LatestTransactionsCard = ({data}) => {
                 </thead>
                 <tbody>
                     {
-                        data.map(({user, updatedAt, total, status}) => (
-                            transactionRow(user.firstName + " " + user.lastName, updatedAt, total, status)
+                        data.map(({_id, user, updatedAt, total, status}, i) => (
+                            transactionRow(_id, user.firstName + " " + user.lastName, updatedAt, total, status, navigate, i)
                         ))
                     }
                     
@@ -29,9 +32,9 @@ const LatestTransactionsCard = ({data}) => {
     )
 }
 
-const transactionRow = (name, transactionDate, amount, status) => {
+const transactionRow = (id, name, transactionDate, amount, status, navigate, i) => {
     return (
-        <tr>
+        <tr className="cursor-pointer hover:bg-primary-100" key={i} onClick={()=> navigate(`/orders/${id}`)}>
             <td className="p-2 flex items-center">
                 <div className="font-semibold">{name}</div>
             </td>

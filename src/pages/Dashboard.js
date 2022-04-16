@@ -97,6 +97,7 @@ const Dashboard = props => {
     const fetchLatestTransactions = async () => {
       setIsLoading(loaders => ({...loaders, latestTransactions: true}))
       let [data, err] = await getLatestTransactions(token)
+      console.log(data);
       setLatestTransactions(data)
       setIsLoading(loaders => ({...loaders, latestTransactions: false}))
       console.log(data);

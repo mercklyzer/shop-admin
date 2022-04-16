@@ -5,13 +5,14 @@ import moment from "moment-timezone";
 import { useNavigate } from "react-router-dom";
 import { getOrders, getUserOrders } from "../apiCalls/order.apiCall";
 import { useToken } from "../hooks/useToken";
+import {RotatingLines} from 'react-loader-spinner'
 
 const OrdersTable = ({userId}) => {
     const navigate = useNavigate()
     const token = useToken()
     const [orders, setOrders] = useState([])
     const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState(null)
+    const [isError, setIsError] = useState(null)
 
     const [sorter, setSorter] = useSorter({
         orderDate: 'desc',
@@ -40,7 +41,7 @@ const OrdersTable = ({userId}) => {
                 setOrders(data)
             }
             if(err){
-                setError(err)
+                setIsError(true)
             }
             setIsLoading(false)
         }
@@ -104,8 +105,9 @@ const OrdersTable = ({userId}) => {
                 </tbody>}
             </table>
             
-            {isLoading && <div className="flex w-full justify-center items-center">Fetching data...</div>}
+            {isLoading && <div className="w-full flex items-center justify-center"><RotatingLines width="25"/></div>}
             {orders.length === 0 && !isLoading && <div className="flex w-full justify-center items-center">No orders yet.</div>}
+            {isError && <div className="w-full flex items-center justify-center">Error fetching data.</div>}
         </div>
     )
 }

@@ -5,12 +5,14 @@ import moment from "moment-timezone";
 import Role from "../components/Role";
 import useSorter from "../hooks/useSorter";
 import { useNavigate } from "react-router-dom";
+import {RotatingLines} from 'react-loader-spinner'
 
 const Users = props => {
     const navigate = useNavigate()
     const token = useToken()
     const [users, setUsers] = useState([])
     const [isLoading, setIsLoading] = useState(false)
+    const [isError, setIsError] = useState(false)
     const [sorter, setSorter] = useSorter({
         user: '',
         email: '',
@@ -35,7 +37,13 @@ const Users = props => {
 
             const [data, err] = await getUsers(token, chosenField, sort)
             console.log(data);
-            setUsers(data)
+            if(data){
+                setUsers(data)
+            }
+            if(err){
+                console.log(err);
+                setIsError(true)
+            }
             setIsLoading(false)
         }
         fetchUsers()
@@ -92,6 +100,9 @@ const Users = props => {
                         
                     </tbody>}
                 </table>
+                {isLoading && <div className="w-full flex items-center justify-center"><RotatingLines width="25"/></div>}
+                {isError && <div className="w-full flex items-center justify-center">Error fetching data.</div>}
+                {users.length === 0 && !isLoading && <div className="flex w-full justify-center items-center">No orders yet.</div>}
             </div>
         </div>
     )

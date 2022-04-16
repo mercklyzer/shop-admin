@@ -4,12 +4,13 @@ import { useNavigate } from "react-router-dom"
 import { getProducts } from "../apiCalls/product.apiCall"
 import useSorter from "../hooks/useSorter"
 import { useToken } from "../hooks/useToken"
+import {RotatingLines} from 'react-loader-spinner'
 
 const Products = (props) => {
     const navigate = useNavigate()
     const token = useToken()
     const [products, setProducts] = useState([])
-    const [error, setError] = useState(null)
+    const [isError, setIsError] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
     const [sorter, setSorter] = useSorter({
         product: 'asc',
@@ -39,7 +40,8 @@ const Products = (props) => {
             setProducts(data)
         }
         if(err){
-            setError(err)
+            console.log(err);
+            setIsError(true)
         }
         setIsLoading(false)
         
@@ -125,6 +127,9 @@ const Products = (props) => {
                     }
                 </tbody>
             </table>
+            {isLoading && <div className="w-full flex items-center justify-center"><RotatingLines width="25"/></div>}
+            {isError && <div className="w-full flex items-center justify-center">Error fetching data.</div>}
+            {products.length === 0 && !isLoading && <div className="flex w-full justify-center items-center">No orders yet.</div>}
         </div>
     )
 }

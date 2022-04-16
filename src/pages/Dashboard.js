@@ -109,9 +109,9 @@ const Dashboard = props => {
   return (
     <div className={props.className}>
         <div className="grid grid-cols-3 gap-8 pb-8">
-          {monthlyGrossSales && <ReportCard title="Gross Sales" currency={true} figure={monthlyGrossSales.now} percentage={monthlyGrossSales.percentageIncrease}/>}
-          {monthlyNetSales && <ReportCard title="Net Sales" currency={true} figure={monthlyNetSales.now} percentage={monthlyNetSales.percentageIncrease}/>}
-          {newMonthlyUsersCount && <ReportCard title="New Users" figure={newMonthlyUsersCount.now} percentage={newMonthlyUsersCount.percentageIncrease}/>}
+          {monthlyGrossSales && <ReportCard title="Gross Sales This Month" currency={true} figure={monthlyGrossSales.now} percentage={monthlyGrossSales.percentageIncrease}/>}
+          {monthlyNetSales && <ReportCard title="Net Sales This Month" currency={true} figure={monthlyNetSales.now} percentage={monthlyNetSales.percentageIncrease}/>}
+          {newMonthlyUsersCount && <ReportCard title="New Users This Month" figure={newMonthlyUsersCount.now} percentage={newMonthlyUsersCount.percentageIncrease}/>}
         </div>
 
         <Chart

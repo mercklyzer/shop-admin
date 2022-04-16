@@ -4,6 +4,7 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
+import Guard from "./components/Guard";
 import Login from './pages/Login';
 import Main from './pages/Main';
 import NotFound from "./pages/NotFound";
@@ -27,7 +28,7 @@ function App() {
             '/products/edit/:productId',
             '/orders',
             '/orders/:orderId'
-          ].map((path, i) => <Route path={path} key={i} element={<Main />} />)}
+          ].map((path, i) => <Route path={path} key={i} element={<Guard><Main /></Guard>} />)}
           <Route path="*" element={<NotFound />} />
           
         </Routes>

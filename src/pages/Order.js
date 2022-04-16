@@ -4,9 +4,11 @@ import Status from "../components/Status";
 import { useToken } from "../hooks/useToken";
 import moment from 'moment-timezone'
 import OrderProduct from "../components/OrderProduct";
+import { useNavigate } from "react-router-dom";
 
 const Order = ({id}) => {
     // const [isLoading, setIsLoading] = useState(false)
+    const navigate = useNavigate()
     const [order, setOrder] = useState(null)
     const [showStatusOptions, setShowStatusOption] = useState(false)
     const token = useToken()
@@ -54,7 +56,7 @@ const Order = ({id}) => {
                 <tbody>
                     <tr>
                         <td className="pr-4 text-xl font-bold">Customer:</td>
-                        <td className="text-lg font-semibold">{order.user.username}</td>
+                        <td className="text-lg font-semibold cursor-pointer hover:underline" onClick={() => navigate(`/users/${order.user._id}`)}>{order.user.firstName} {order.user.lastName}</td>
                     </tr>
                     <tr>
                         <td className="pr-4 text-xl font-bold">Address:</td>

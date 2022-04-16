@@ -13,7 +13,7 @@ const LatestTransactionsCard = ({data}) => {
             <table className="w-full">
                 <thead>
                     <tr className="">
-                        <th className="text-left p-2 text-lg">Customer</th>
+                        <th className="text-left p-2 text-lg">User</th>
                         <th className="text-left p-2 text-lg">Date</th>
                         <th className="text-left p-2 text-lg">Amount</th>
                         <th className="text-left p-2 text-lg">Status</th>

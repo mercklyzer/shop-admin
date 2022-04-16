@@ -1,10 +1,12 @@
 import {
   BrowserRouter as Router,
   Routes,
-  Route
+  Route,
+  Redirect
 } from "react-router-dom";
 import Login from './pages/Login';
 import Main from './pages/Main';
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -26,6 +28,7 @@ function App() {
             '/orders',
             '/orders/:orderId'
           ].map((path, i) => <Route path={path} key={i} element={<Main />} />)}
+          <Route path="*" element={<NotFound />} />
           
         </Routes>
       </Router>

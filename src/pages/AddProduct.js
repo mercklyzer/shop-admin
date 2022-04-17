@@ -230,7 +230,9 @@ const AddProduct = ({
                     <select className="text-gray-700 font-semibold p-2" name="category" value={product.category} onChange={(e) => setProduct(e)}>
                         <option className="border px-2 py-1 rounded-sm w-96" value="beds">Bed</option>
                         <option className="border px-2 py-1 rounded-sm w-96" value="chairs">Chair</option>
+                        <option className="border px-2 py-1 rounded-sm w-96" value="sofas">Sofa</option>
                         <option className="border px-2 py-1 rounded-sm w-96" value="pillows">Pillow</option>
+                        <option className="border px-2 py-1 rounded-sm w-96" value="tables">Table</option>
                     </select>
                 </div>
                 

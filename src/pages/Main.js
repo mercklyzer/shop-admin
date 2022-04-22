@@ -29,7 +29,7 @@ const Main = () => {
             {route === `/users/${userId}` && <User className="min-w-[48rem]" id={userId}/>}
             {route === '/products' && <Products className="min-w-[60rem]" />}
             {route === '/products/add' && <AddProduct />}
-            {route === `/products/${productId}` && <Product id={productId} />}
+            {route === `/products/${productId}` && <Product className="min-w-[50rem]" id={productId} />}
             {route === `/products/edit/${productId}` && <EditProduct id={productId} />}
             {route === `/orders` && <Orders className="min-w-[50rem]"/>}
             {route === `/orders/${orderId}` && <Order className="min-w-[50rem]" id={orderId}/>}

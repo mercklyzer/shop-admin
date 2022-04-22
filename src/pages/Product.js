@@ -10,9 +10,10 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 import CountUp from 'react-countup';
+import {RotatingLines} from 'react-loader-spinner'
 
 
-const Product = ({id}) => {
+const Product = ({id, className}) => {
     const navigate = useNavigate()
     const token = useToken()
     const [product, setProduct] = useState(null)
@@ -42,7 +43,10 @@ const Product = ({id}) => {
 
 
     return (
-        product && <div className="p-6 shadow-xl bg-white rounded-lg">
+        <>
+        {isLoading && <div className="w-full h-full flex items-center justify-center"><RotatingLines width="25"/></div>}
+        {product && <div className={className}>
+        <div className="p-6 shadow-xl bg-white rounded-lg">
 
             <div className="grid grid-cols-2 gap-12">
                 <div className="">
@@ -96,10 +100,10 @@ const Product = ({id}) => {
                     </div>
 
                 </div>
-            </div>
-
-                       
+            </div>      
         </div>
+        </div>}
+        </>
     )
 }
 

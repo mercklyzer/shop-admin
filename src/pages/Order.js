@@ -5,9 +5,10 @@ import { useToken } from "../hooks/useToken";
 import moment from 'moment-timezone'
 import OrderProduct from "../components/OrderProduct";
 import { useNavigate } from "react-router-dom";
+import {RotatingLines} from 'react-loader-spinner'
 
-const Order = ({id}) => {
-    // const [isLoading, setIsLoading] = useState(false)
+const Order = ({id, className}) => {
+    const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
     const [order, setOrder] = useState(null)
     const [showStatusOptions, setShowStatusOption] = useState(false)
@@ -15,10 +16,12 @@ const Order = ({id}) => {
 
     useEffect(() => {
         const fetchData = async () => {
+            setIsLoading(true)
             let [order, err] = await getOrder(token, id)
             console.log(order);
             console.log(err);
             setOrder(order)
+            setIsLoading(false)
         }
 
         fetchData()
@@ -34,11 +37,11 @@ const Order = ({id}) => {
         }
     } 
 
-
     return (
-   
-        order && <>
-        <div className="p-6 shadow-xl bg-white rounded-lg flex justify-between items-center">
+        <>
+        {isLoading && <div className="w-full h-full flex items-center justify-center"><RotatingLines width="25"/></div>}
+        {order && <div className={className}>
+        <div className={`p-6 shadow-xl bg-white rounded-lg flex justify-between items-center`}>
             <div>
                 <div className="text-2xl font-bold">Order ID: {id}</div>
                 <div>{moment(order.createdAt).subtract(10, 'days').calendar()}</div>
@@ -56,7 +59,7 @@ const Order = ({id}) => {
                 <tbody>
                     <tr>
                         <td className="pr-4 text-xl font-bold">Customer:</td>
-                        <td className="text-lg font-semibold cursor-pointer hover:underline" onClick={() => navigate(`/users/${order.user._id}`)}>{order.user.firstName} {order.user.lastName}</td>
+                        <td className="text-lg font-semibold cursor-pointer hover:underline" onClick={() => navigate(`/users/${order.user._id}`)}>{order.user.firstName} {order.user.lastName} ({order.user.username})</td>
                     </tr>
                     <tr>
                         <td className="pr-4 text-xl font-bold">Address:</td>
@@ -80,6 +83,7 @@ const Order = ({id}) => {
                 key={i}
             />)}
         </div>
+        </div>}
         </>
     )
 }

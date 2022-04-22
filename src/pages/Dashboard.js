@@ -110,9 +110,7 @@ const Dashboard = props => {
         <div className="grid grid-cols-3 gap-8 pb-8">
           <ReportCard title="Gross Sales This Month" isLoading={isLoading.monthlyGrossSales} currency={true} figure={monthlyGrossSales?.now} percentage={monthlyGrossSales?.percentageIncrease}/>
           <ReportCard title="Net Sales This Month" isLoading={isLoading.monthlyNetSales} currency={true} figure={monthlyNetSales?.now} percentage={monthlyNetSales?.percentageIncrease}/>
-          <ReportCard title="New Users This Month" isLoading={isLoading.newMonthlyUsersCount} currency={true} figure={newMonthlyUsersCount?.now} percentage={newMonthlyUsersCount?.percentageIncrease}/>
-          
-          {/* {newMonthlyUsersCount && <ReportCard title="New Users This Month" figure={newMonthlyUsersCount.now} percentage={newMonthlyUsersCount.percentageIncrease}/>} */}
+          <ReportCard title="New Users This Month" isLoading={isLoading.newMonthlyUsersCount} figure={newMonthlyUsersCount?.now} percentage={newMonthlyUsersCount?.percentageIncrease}/>
         </div>
 
         <Chart

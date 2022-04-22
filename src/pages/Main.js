@@ -32,7 +32,7 @@ const Main = () => {
             {route === `/products/${productId}` && <Product id={productId} />}
             {route === `/products/edit/${productId}` && <EditProduct id={productId} />}
             {route === `/orders` && <Orders className="min-w-[50rem]"/>}
-            {route === `/orders/${orderId}` && <Order id={orderId}/>}
+            {route === `/orders/${orderId}` && <Order className="min-w-[50rem]" id={orderId}/>}
         </Content>
         
     </div>

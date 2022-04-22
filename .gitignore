@@ -5,8 +5,7 @@
 /.pnp
 .pnp.js
 
-# files with API keys (use dotenv soon)
-/src/firebase.js
+.env
 
 # testing
 /coverage

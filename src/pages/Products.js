@@ -20,31 +20,34 @@ const Products = (props) => {
         lastModified: ''
     }, 'product')
 
-    useEffect(async () => {
-        setIsLoading(true)
+    useEffect(() => {
+        const fetchData = async () => {
+            setIsLoading(true)
 
-        let fields = Object.keys(sorter)
-        let chosenField = ''
-        let sort = ''
-        for(let field of fields){
-            if(sorter[field] !== ''){
-                chosenField = field
-                sort = sorter[field]
-                break;
+            let fields = Object.keys(sorter)
+            let chosenField = ''
+            let sort = ''
+            for(let field of fields){
+                if(sorter[field] !== ''){
+                    chosenField = field
+                    sort = sorter[field]
+                    break;
+                }
             }
+    
+            const [data, err] = await getProducts(token, chosenField, sort)
+            console.log(data);
+            if(data){
+                setProducts(data)
+            }
+            if(err){
+                console.log(err);
+                setIsError(true)
+            }
+            setIsLoading(false)
         }
 
-        const [data, err] = await getProducts(token, chosenField, sort)
-        console.log(data);
-        if(data){
-            setProducts(data)
-        }
-        if(err){
-            console.log(err);
-            setIsError(true)
-        }
-        setIsLoading(false)
-        
+        fetchData()        
     }, [sorter])
 
 

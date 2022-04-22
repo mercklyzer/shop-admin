@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { loginFailure, loginStart, loginSuccess } from '../redux/userRedux'
 
-const baseUrl = "http://localhost:5000"
+const baseUrl = process.env.REACT_APP_BASE_URL
 
 export const login = async (dispatch, navigate, user) => {
     dispatch(loginStart())

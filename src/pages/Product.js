@@ -22,23 +22,26 @@ const Product = ({id, className}) => {
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(async () => {
-        setIsLoading(true)
-        const [data, err] = await getProduct(token, id)
-        if(data){
-            console.log(data);
-            setProduct(data)
-
-            let images = [data.displayImg, data.previewImg]
-            if(data.otherImgs){
-                images.push(data.otherImgs)
+        const fetchData = async () => {
+            setIsLoading(true)
+            const [data, err] = await getProduct(token, id)
+            if(data){
+                console.log(data);
+                setProduct(data)
+    
+                let images = [data.displayImg, data.previewImg]
+                if(data.otherImgs){
+                    images.push(data.otherImgs)
+                }
+                setSlideImages(images)
             }
-            setSlideImages(images)
+            if(err){
+                setError(err)
+            }
+            setIsLoading(false)
         }
-        if(err){
-            setError(err)
-        }
-        setIsLoading(false)
-        
+
+        fetchData()       
     }, [])
 
 

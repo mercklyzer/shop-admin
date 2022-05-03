@@ -31,6 +31,7 @@ const Login = props => {
                     </div>
                     <div className="font-bold text-2xl">ADMIN</div>
                     {errorLogin && <div className="text-red-600">{errorMessageLogin}</div>}
+                    <div className="text-zinc-700">Use "tester1" with the password "password".</div>
                     <form className="w-full max-w-[20rem]">                    
                         <label className="flex flex-col w-full mt-4 md:mt-8 mx-2">
                             <div className="text-sm font-bold text-zinc-500 mb-2">Username</div>
